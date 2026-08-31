@@ -31,6 +31,7 @@ jobs:
       - name: Validate metadata, signatures, icons, and immutable archives
         env:
           EXTENSION_TOOL: ${{ github.workspace }}/clipsx-host/src-tauri/target/debug/clipsx-extension-tool
+          REGISTRY_BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: npm run validate -- --download-dir .downloads
       - name: Require generated files to match reviewed sources
         if: github.event_name == 'pull_request'

@@ -10,6 +10,36 @@ const downloadDirectory = downloadIndex >= 0 ? resolve(process.argv[downloadInde
 const requireCurrent = args.has('--require-current')
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex')
 const compare = (left, right) => (left < right ? -1 : left > right ? 1 : 0)
+const compareSemver = (left, right) => {
+  const parse = value => {
+    const match = value.match(/^(\d+)\.(\d+)\.(\d+)(?:-([0-9A-Za-z.-]+))?$/)
+    if (!match) return null
+    return { numbers: match.slice(1, 4).map(Number), prerelease: match[4]?.split('.') ?? [] }
+  }
+  const a = parse(left)
+  const b = parse(right)
+  if (!a || !b) fail('Cannot compare invalid SemVer')
+  for (let index = 0; index < 3; index += 1) {
+    if (a.numbers[index] !== b.numbers[index]) return a.numbers[index] - b.numbers[index]
+  }
+  if (!a.prerelease.length || !b.prerelease.length) return b.prerelease.length - a.prerelease.length
+  for (let index = 0; index < Math.max(a.prerelease.length, b.prerelease.length); index += 1) {
+    if (a.prerelease[index] === undefined) return -1
+    if (b.prerelease[index] === undefined) return 1
+    const aNumeric = /^\d+$/.test(a.prerelease[index])
+    const bNumeric = /^\d+$/.test(b.prerelease[index])
+    if (aNumeric && bNumeric) {
+      const difference = Number(a.prerelease[index]) - Number(b.prerelease[index])
+      if (difference) return difference
+    } else if (aNumeric !== bNumeric) {
+      return aNumeric ? -1 : 1
+    } else {
+      const difference = compare(a.prerelease[index], b.prerelease[index])
+      if (difference) return difference
+    }
+  }
+  return 0
+}
 const fail = message => {
   throw new Error(message)
 }
@@ -76,6 +106,33 @@ for (const packageEntry of packages) {
       fail(`${identity}: ${theme} icon must be 256x256`)
     }
     if (sha256(bytes) !== descriptor.sha256) fail(`${identity}: ${theme} icon hash mismatch`)
+  }
+}
+
+const baseSha = process.env.REGISTRY_BASE_SHA
+if (baseSha) {
+  const tree = spawnSync('git', ['ls-tree', '-r', '--name-only', baseSha, 'packages'], {
+    cwd: root,
+    encoding: 'utf8',
+  })
+  if (tree.status !== 0) fail('Unable to inspect the base registry revision')
+  const previous = tree.stdout
+    .split(/\r?\n/)
+    .filter(path => path.endsWith('.json'))
+    .map(path => {
+      const result = spawnSync('git', ['show', `${baseSha}:${path}`], { cwd: root, encoding: 'utf8' })
+      if (result.status !== 0) fail(`Unable to read base metadata ${path}`)
+      return JSON.parse(result.stdout)
+    })
+  const previousIdentities = new Set(previous.map(entry => `${entry.packageId}@${entry.version}`))
+  for (const packageEntry of packages) {
+    if (previousIdentities.has(`${packageEntry.packageId}@${packageEntry.version}`)) continue
+    const priorVersions = previous
+      .filter(entry => entry.packageId === packageEntry.packageId)
+      .map(entry => entry.version)
+    if (priorVersions.some(version => compareSemver(packageEntry.version, version) <= 0)) {
+      fail(`${packageEntry.packageId}@${packageEntry.version}: new releases must increase SemVer`)
+    }
   }
 }
 
