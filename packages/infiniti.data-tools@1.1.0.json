@@ -1,0 +1,35 @@
+{
+  "packageId": "infiniti.data-tools",
+  "version": "1.1.0",
+  "apiVersion": "^2.0",
+  "displayName": "Data Tools",
+  "description": "Convert tables, structured data, TypeScript shapes, and URLs locally.",
+  "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/data-tools-v1.1.0/data-tools-1.1.0.clipsx",
+  "sha256": "bcc8acde4042df1c7f6f19f8f18d4f09e128ad4df4bcf712e7b049b5324c38e8",
+  "contributions": ["markdown-table-detector", "data-transform", "json-to-csv", "json-to-tsv", "json-to-markdown", "json-to-yaml", "json-to-toml", "json-to-typescript", "table-to-json", "table-to-csv", "table-to-tsv", "table-to-markdown", "markdown-table-to-json", "markdown-table-to-csv", "markdown-table-to-tsv", "yaml-to-json", "toml-to-json", "url-encode", "url-decode", "url-normalize", "url-query-to-json"],
+  "httpOrigins": [],
+  "externalNavigationOrigins": [],
+  "credentialLabels": [],
+  "providers": [],
+  "publisher": { "id": "infiniti", "displayName": "Infiniti", "verified": true },
+  "categories": ["Developer Tools", "Productivity"],
+  "tags": ["json", "csv", "yaml", "toml", "typescript", "url"],
+  "publishedAt": "2026-08-31T23:39:56Z",
+  "updatedAt": "2026-08-31T23:39:56Z",
+  "archiveSizeBytes": 290703,
+  "license": "MIT",
+  "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/data-tools",
+  "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
+  "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/data-tools/README.md",
+  "iconAssets": {
+    "light": {
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/data-tools-light.png",
+      "sha256": "5d00a7a7a5d6a70f47f72738f49293c2e302daf8b14901f5f66b62bf73c5618a"
+    },
+    "dark": {
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/data-tools-dark.png",
+      "sha256": "83ddbb2e3b3f956e699079caec044b4cfae8fba8b13a2d20ef854b124c374a28"
+    }
+  },
+  "permissionFingerprint": "97896e55058af78a5a4e6634cc3e85f98f1f9a233341b22e8a54286abcfd216b"
+}

@@ -1,0 +1,35 @@
+{
+  "packageId": "infiniti.mermaid",
+  "version": "1.0.0",
+  "apiVersion": "^2.0",
+  "displayName": "Mermaid",
+  "description": "Fast, offline Mermaid diagrams and enhanced Markdown rendering.",
+  "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/mermaid-v1.0.0/mermaid-1.0.0.clipsx",
+  "sha256": "c0fba564801fbf3761b4d84254ea112498b1ad374becb8a29d18a6d8a99eda5c",
+  "contributions": ["detect-mermaid", "mermaid-detail", "markdown-mermaid-detail", "open-mermaid-dialog"],
+  "httpOrigins": [],
+  "externalNavigationOrigins": [],
+  "credentialLabels": [],
+  "providers": [],
+  "publisher": { "id": "infiniti", "displayName": "Infiniti", "verified": true },
+  "categories": ["Productivity", "Visualization"],
+  "tags": ["mermaid", "diagram", "markdown"],
+  "publishedAt": "2026-08-31T23:39:59Z",
+  "updatedAt": "2026-08-31T23:39:59Z",
+  "archiveSizeBytes": 1117609,
+  "license": "MIT",
+  "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/mermaid-viewer",
+  "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
+  "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/mermaid-viewer/README.md",
+  "iconAssets": {
+    "light": {
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/mermaid-light.png",
+      "sha256": "fe9ac92789d1916f5bfc07758e3eab34acf491c018ccaa48ceb445b8c46d4fdc"
+    },
+    "dark": {
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/mermaid-dark.png",
+      "sha256": "fe9ac92789d1916f5bfc07758e3eab34acf491c018ccaa48ceb445b8c46d4fdc"
+    }
+  },
+  "permissionFingerprint": "97896e55058af78a5a4e6634cc3e85f98f1f9a233341b22e8a54286abcfd216b"
+}

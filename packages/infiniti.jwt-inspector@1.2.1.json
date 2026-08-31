@@ -1,0 +1,35 @@
+{
+  "packageId": "infiniti.jwt-inspector",
+  "version": "1.2.1",
+  "apiVersion": "^2.0",
+  "displayName": "JWT Inspector",
+  "description": "Inspect JWT headers, claims, and timestamps locally without implying signature verification.",
+  "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/jwt-inspector-v1.2.1/jwt-inspector-1.2.1.clipsx",
+  "sha256": "fc28fe0f15568b62a8e1f2391dfc33041099f0159b65a99fde9ffdf7b8c2f5ec",
+  "contributions": ["detect-jwt", "jwt-detail", "extract-jwt", "copy-payload"],
+  "httpOrigins": [],
+  "externalNavigationOrigins": [],
+  "credentialLabels": [],
+  "providers": [],
+  "publisher": { "id": "infiniti", "displayName": "Infiniti", "verified": true },
+  "categories": ["Developer Tools", "Security"],
+  "tags": ["jwt", "token", "json", "security"],
+  "publishedAt": "2026-08-31T23:39:57Z",
+  "updatedAt": "2026-08-31T23:39:57Z",
+  "archiveSizeBytes": 44265,
+  "license": "MIT",
+  "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/jwt-inspector",
+  "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
+  "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/jwt-inspector/README.md",
+  "iconAssets": {
+    "light": {
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/jwt-inspector-light.png",
+      "sha256": "baf6df5ae7a9b2cf82f036f4aafd945d4f597024a55da68f6fcb4439164230b6"
+    },
+    "dark": {
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/jwt-inspector-dark.png",
+      "sha256": "e7f2e95f8338e4aae17b5358ca52f82b40a5b434d718074f60ff3cf02a8d32a5"
+    }
+  },
+  "permissionFingerprint": "97896e55058af78a5a4e6634cc3e85f98f1f9a233341b22e8a54286abcfd216b"
+}
