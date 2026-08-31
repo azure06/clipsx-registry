@@ -1,0 +1,61 @@
+name: Publish signed registry
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: registry-publication
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: registry-signing
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Check out the pinned ClipsX validator
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: azure06/clipsx
+          path: clipsx-host
+          ref: b0b4b58b137e3a08a4ca86dc1727a495c7983ef2
+      - name: Install host validator dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libxdo-dev
+      - run: npm ci
+      - run: cargo build --locked --manifest-path clipsx-host/src-tauri/Cargo.toml --bin clipsx-extension-tool
+      - name: Generate and sign exact registry bytes
+        env:
+          CLIPSX_REGISTRY_KEY_ID: infiniti-registry-2026-01
+          CLIPSX_REGISTRY_SIGNING_KEY_PEM: ${{ secrets.CLIPSX_REGISTRY_SIGNING_KEY_PEM }}
+        run: |
+          npm run build
+          npm run sign
+      - name: Validate the publication candidate
+        env:
+          EXTENSION_TOOL: ${{ github.workspace }}/clipsx-host/src-tauri/target/debug/clipsx-extension-tool
+        run: npm run validate -- --require-current --download-dir .downloads
+      - name: Open atomic publication pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- index.json index.signatures.json; then
+            echo "Registry is already current."
+            exit 0
+          fi
+          branch="registry-publication-${GITHUB_RUN_ID}"
+          git config user.name "clipsx-registry[bot]"
+          git config user.email "clipsx-registry[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add index.json index.signatures.json
+          git commit -m "chore: publish signed registry"
+          git push origin "$branch"
+          gh pr create --base main --head "$branch" --title "chore: publish signed registry" \
+            --body "Generated from reviewed package metadata and signed in the protected registry-signing environment."

@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "signatures": [
+    {
+      "keyId": "infiniti-registry-2026-01",
+      "algorithm": "ed25519",
+      "signature": "1FUZ660cYCcD0VxX5cBajXneDUJ4a2Gm0tWY502m5uKZPn9gNqa5y9jEuUPVrqsgHBBpISVg0sy34zdPPRenCw=="
+    }
+  ]
+}

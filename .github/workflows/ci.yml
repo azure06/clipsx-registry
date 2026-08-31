@@ -1,0 +1,41 @@
+name: Registry validation
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+      - name: Check out the pinned ClipsX validator
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: azure06/clipsx
+          path: clipsx-host
+          ref: b0b4b58b137e3a08a4ca86dc1727a495c7983ef2
+      - name: Install host validator dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libxdo-dev
+      - run: npm ci
+      - name: Build independent package validator
+        run: cargo build --locked --manifest-path clipsx-host/src-tauri/Cargo.toml --bin clipsx-extension-tool
+      - name: Validate metadata, signatures, icons, and immutable archives
+        env:
+          EXTENSION_TOOL: ${{ github.workspace }}/clipsx-host/src-tauri/target/debug/clipsx-extension-tool
+        run: npm run validate -- --download-dir .downloads
+      - name: Require generated files to match reviewed sources
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          if git diff --name-only "${{ github.event.pull_request.base.sha }}"...HEAD | grep -Eq '^(index\.json|index\.signatures\.json)$'; then
+            npm run validate -- --require-current
+          fi
