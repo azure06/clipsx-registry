@@ -2,12 +2,14 @@ import { createHash, createPublicKey, verify } from 'node:crypto'
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { basename, resolve } from 'node:path'
 import { spawnSync } from 'node:child_process'
+import { expectedRelease, validatePublishedRelease } from './release-policy.mjs'
 
 const root = resolve(import.meta.dirname, '..')
 const args = new Set(process.argv.slice(2))
 const downloadIndex = process.argv.indexOf('--download-dir')
 const downloadDirectory = downloadIndex >= 0 ? resolve(process.argv[downloadIndex + 1]) : null
 const requireCurrent = args.has('--require-current')
+const verifyReleases = args.has('--verify-releases')
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex')
 const compare = (left, right) => (left < right ? -1 : left > right ? 1 : 0)
 const compareSemver = (left, right) => {
@@ -51,7 +53,22 @@ const packages = packageFiles.map(name =>
   JSON.parse(readFileSync(resolve(root, 'packages', name), 'utf8'))
 )
 const revocations = JSON.parse(readFileSync(resolve(root, 'revocations.json'), 'utf8'))
+const legacyReleases = JSON.parse(readFileSync(resolve(root, 'legacy-releases.json'), 'utf8'))
 const identities = new Set()
+const legacyIdentities = new Set()
+
+for (const entry of legacyReleases) {
+  const identity = `${entry.packageId}@${entry.version}`
+  if (
+    !/^infiniti\.[a-z0-9]+(?:-[a-z0-9]+)*$/.test(entry.packageId) ||
+    !/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/.test(entry.version) ||
+    !/^[a-f0-9]{64}$/.test(entry.sha256) ||
+    legacyIdentities.has(identity)
+  ) {
+    fail(`${identity}: invalid legacy release policy`)
+  }
+  legacyIdentities.add(identity)
+}
 
 for (const packageEntry of packages) {
   const identity = `${packageEntry.packageId}@${packageEntry.version}`
@@ -71,7 +88,7 @@ for (const packageEntry of packages) {
   ) {
     fail(`${identity}: publisher must be the verified Infiniti identity`)
   }
-  if (!/^https:\/\/github\.com\/azure06\/clipsx-extensions\/releases\/download\//.test(packageEntry.releaseUrl)) {
+  if (packageEntry.releaseUrl !== expectedRelease(packageEntry).url) {
     fail(`${identity}: release URL is not an official immutable release`)
   }
   if (!/^[a-f0-9]{64}$/.test(packageEntry.sha256)) fail(`${identity}: invalid archive hash`)
@@ -106,6 +123,19 @@ for (const packageEntry of packages) {
       fail(`${identity}: ${theme} icon must be 256x256`)
     }
     if (sha256(bytes) !== descriptor.sha256) fail(`${identity}: ${theme} icon hash mismatch`)
+  }
+}
+
+for (const legacy of legacyReleases) {
+  if (
+    !packages.some(
+      packageEntry =>
+        packageEntry.packageId === legacy.packageId &&
+        packageEntry.version === legacy.version &&
+        packageEntry.sha256 === legacy.sha256
+    )
+  ) {
+    fail(`${legacy.packageId}@${legacy.version}: unused or altered legacy release policy`)
   }
 }
 
@@ -210,6 +240,26 @@ if (downloadDirectory) {
         if (inspected[field] !== packageEntry[field]) fail(`${packageEntry.packageId}: ${field} differs from the archive`)
       }
     }
+  }
+}
+
+if (verifyReleases) {
+  const headers = {
+    Accept: 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2026-03-10',
+    'User-Agent': 'clipsx-registry-validator',
+  }
+  if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`
+  for (const packageEntry of packages) {
+    const { tag } = expectedRelease(packageEntry)
+    const response = await fetch(
+      `https://api.github.com/repos/azure06/clipsx-extensions/releases/tags/${encodeURIComponent(tag)}`,
+      { headers, redirect: 'error' }
+    )
+    if (!response.ok) {
+      fail(`${packageEntry.packageId}: GitHub release lookup failed (${response.status})`)
+    }
+    validatePublishedRelease(packageEntry, await response.json(), legacyReleases)
   }
 }
 

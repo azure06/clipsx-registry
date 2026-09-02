@@ -1,8 +1,11 @@
 # ClipsX Extension Registry
 
 The official signed catalog for [ClipsX](https://github.com/azure06/clipsx).
-Package source and immutable `.clipsx` release assets live in
+Package source and checksum-pinned `.clipsx` release assets live in
 [`azure06/clipsx-extensions`](https://github.com/azure06/clipsx-extensions).
+GitHub release immutability is enforced for new releases. The five initial
+catalog entries are exact hash-pinned legacy exceptions because GitHub cannot
+apply immutability retroactively.
 
 The registry is a trust root, not a package host. `index.json` contains reviewed
 metadata, archive checksums, catalog-icon checksums, and revocations.
@@ -24,8 +27,9 @@ by a higher version; it is never overwritten.
 
 ## Publication
 
-1. Publish a draft extension release from `clipsx-extensions` and review its CI.
-2. Publish the GitHub Release so its URL is immutable and publicly downloadable.
+1. Create a draft extension release from `clipsx-extensions` and review its CI.
+2. Attach every final asset, publish the draft, and verify GitHub reports the
+   release as immutable and publicly downloadable.
 3. Add or update one reviewed file under `packages/`, including the exact archive
    and icon hashes.
 4. Merge the metadata PR after registry CI independently downloads and validates
