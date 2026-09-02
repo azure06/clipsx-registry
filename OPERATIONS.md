@@ -24,6 +24,13 @@ fresh install is blocked and an installed matching release is quarantined.
 
 ## Key rotation
 
+During an overlap window, set the `CLIPSX_REGISTRY_SECONDARY_KEY_ID`
+environment variable and `CLIPSX_REGISTRY_SECONDARY_SIGNING_KEY_PEM` secret in
+the protected `registry-signing` environment. Publication emits both signatures
+in stable key-ID order. Ship a ClipsX release that trusts the new public key
+before removing the old signer, then remove the old host trust key only after
+the supported-client overlap window has closed.
+
 1. Generate the replacement Ed25519 key outside both repositories.
 2. Add its public key and ID to ClipsX while retaining the old key.
 3. Release ClipsX with both trusted keys.
