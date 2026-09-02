@@ -2,15 +2,27 @@
 
 ## Normal release
 
-Validate the immutable extension release, review its requested permissions and
-catalog copy, merge the package metadata, then run the protected publication
-workflow. The workflow generates deterministic index bytes and signs those exact
-bytes. Do not edit generated index or signature files manually.
+Build the extension through the manually approved `extension-publishing`
+environment. The workflow creates a draft release so every final asset can be
+attached before publication. Publish the draft, verify GitHub reports
+`immutable: true`, then review its requested permissions and catalog copy.
+Merge the package metadata only after registry CI independently verifies the
+repository, tag, asset name, size, digest, immutable status, and package
+contents. Run the protected registry publication workflow last; it generates
+deterministic index bytes and signs those exact bytes. Do not edit generated
+index or signature files manually.
+
+The exact entries in `legacy-releases.json` are the five initial releases made
+before GitHub immutability was enabled. Their signed SHA-256 values still reject
+substituted bytes, but deletion can make them unavailable. Never add another
+exception or alter an existing tuple; all later releases must be immutable.
 
 ## Failure handling
 
 - Validation failure: correct the source or publish a new extension version. Do
   not replace an existing release asset.
+- Mutable release: discard the draft or publish a higher version after fixing
+  repository immutability. Never add it to `legacy-releases.json`.
 - Publication failure: leave the previous signed index live and rerun only after
   fixing the workflow or metadata.
 - Registry outage: ClipsX retains its last verified catalog. Never bypass client

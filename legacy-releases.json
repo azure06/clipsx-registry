@@ -1,0 +1,27 @@
+[
+  {
+    "packageId": "infiniti.ask-ai",
+    "version": "1.0.3",
+    "sha256": "5755c8220f57e8eedc31a02a2b5c22a04561f850e3d6c3b517642a2f3b23352f"
+  },
+  {
+    "packageId": "infiniti.base64",
+    "version": "1.8.5",
+    "sha256": "3fc27c16004f6704e9474fda094832e0acf6546d46bdfe7e8103cd6c626ae6c3"
+  },
+  {
+    "packageId": "infiniti.data-tools",
+    "version": "1.1.0",
+    "sha256": "bcc8acde4042df1c7f6f19f8f18d4f09e128ad4df4bcf712e7b049b5324c38e8"
+  },
+  {
+    "packageId": "infiniti.jwt-inspector",
+    "version": "1.2.1",
+    "sha256": "fc28fe0f15568b62a8e1f2391dfc33041099f0159b65a99fde9ffdf7b8c2f5ec"
+  },
+  {
+    "packageId": "infiniti.mermaid",
+    "version": "1.0.0",
+    "sha256": "c0fba564801fbf3761b4d84254ea112498b1ad374becb8a29d18a6d8a99eda5c"
+  }
+]
