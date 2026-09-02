@@ -33,6 +33,8 @@ jobs:
         env:
           CLIPSX_REGISTRY_KEY_ID: infiniti-registry-2026-01
           CLIPSX_REGISTRY_SIGNING_KEY_PEM: ${{ secrets.CLIPSX_REGISTRY_SIGNING_KEY_PEM }}
+          CLIPSX_REGISTRY_SECONDARY_KEY_ID: ${{ vars.CLIPSX_REGISTRY_SECONDARY_KEY_ID }}
+          CLIPSX_REGISTRY_SECONDARY_SIGNING_KEY_PEM: ${{ secrets.CLIPSX_REGISTRY_SECONDARY_SIGNING_KEY_PEM }}
         run: |
           npm run build
           npm run sign
