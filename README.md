@@ -27,9 +27,10 @@ by a higher version; it is never overwritten.
 
 ## Publication
 
-1. Create a draft extension release from `clipsx-extensions` and review its CI.
-2. Attach every final asset, publish the draft, and verify GitHub reports the
-   release as immutable and publicly downloadable.
+1. Merge the versioned extension after its package CI passes, then manually run
+   **Publish extension release** for that package. A merge alone never publishes.
+2. Verify GitHub reports the resulting release as immutable and publicly
+   downloadable.
 3. Add or update one reviewed file under `packages/`, including the exact archive
    and icon hashes.
 4. Merge the metadata PR after registry CI independently downloads and validates
@@ -42,3 +43,8 @@ by a higher version; it is never overwritten.
 
 Never commit a private key. See [OPERATIONS.md](OPERATIONS.md) for revocation,
 key rotation, and recovery.
+
+Ordinary workflows use readable major action versions. Actions in the protected
+signing job remain pinned to reviewed commits because that job alone can read
+the catalog private key. This narrow exception protects the trust root without
+making routine CI difficult to maintain.

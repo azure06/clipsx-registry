@@ -2,9 +2,9 @@
 
 ## Normal release
 
-Build the extension through the manually approved `extension-publishing`
-environment. The workflow creates a draft release so every final asset can be
-attached before publication. Publish the draft, verify GitHub reports
+After the versioned extension is merged to `main`, manually run its publication
+workflow. The package manifest is the sole version source; the workflow builds,
+validates, and publishes that immutable release. Verify GitHub reports
 `immutable: true`, then review its requested permissions and catalog copy.
 Merge the package metadata only after registry CI independently verifies the
 repository, tag, asset name, size, digest, immutable status, and package
