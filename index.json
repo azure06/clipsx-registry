@@ -54,6 +54,58 @@
       "permissionFingerprint": "5dd58f2cc7767e421126f4e4c397c00646964dde48908acac03ba9e4bc6641f1"
     },
     {
+      "packageId": "infiniti.ask-ai",
+      "version": "1.0.4",
+      "apiVersion": "^2.0",
+      "displayName": "Ask AI",
+      "description": "Open selected text as an encoded prompt in ChatGPT or Claude.",
+      "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/ask-ai-v1.0.4/ask-ai-1.0.4.clipsx",
+      "sha256": "3116b1989160e4d20cef708bf3da6a7518b06f9eef631e50ed1063aa34ff5c4b",
+      "contributions": [
+        "ask-chatgpt",
+        "ask-claude"
+      ],
+      "httpOrigins": [],
+      "externalNavigationOrigins": [
+        "https://chatgpt.com",
+        "https://claude.ai"
+      ],
+      "credentialLabels": [],
+      "providers": [],
+      "publisher": {
+        "id": "infiniti",
+        "displayName": "Infiniti",
+        "verified": true
+      },
+      "categories": [
+        "AI",
+        "Productivity"
+      ],
+      "tags": [
+        "chatgpt",
+        "claude",
+        "prompt"
+      ],
+      "publishedAt": "2026-09-03T00:51:00Z",
+      "updatedAt": "2026-09-03T00:51:00Z",
+      "archiveSizeBytes": 19365,
+      "license": "MIT",
+      "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/ask-ai",
+      "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
+      "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/ask-ai/README.md",
+      "iconAssets": {
+        "light": {
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/ask-ai-light.png",
+          "sha256": "995d6aabf717a26d08205d60a36deab080856d364763595675b4579bd58fda4a"
+        },
+        "dark": {
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/ask-ai-dark.png",
+          "sha256": "e7fc1ba4d201399caff82abddb50132ba04157d3101036336383ac2fa27f90e7"
+        }
+      },
+      "permissionFingerprint": "5dd58f2cc7767e421126f4e4c397c00646964dde48908acac03ba9e4bc6641f1"
+    },
+    {
       "packageId": "infiniti.base64",
       "version": "1.8.5",
       "apiVersion": "^2.0",
@@ -88,6 +140,57 @@
       "publishedAt": "2026-08-31T23:39:54Z",
       "updatedAt": "2026-08-31T23:39:54Z",
       "archiveSizeBytes": 53458,
+      "license": "MIT",
+      "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/base64",
+      "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
+      "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/base64/README.md",
+      "iconAssets": {
+        "light": {
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/base64-light.png",
+          "sha256": "c0aafdf7442a3a881f3a50143c85485dc40aba63e1272f77fe9c754d10dd88ca"
+        },
+        "dark": {
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/base64-dark.png",
+          "sha256": "4cdb9e453d56a7a4315a5ea61b2a02ed7f81103117cc6fc4e96233c019b9e548"
+        }
+      },
+      "permissionFingerprint": "97896e55058af78a5a4e6634cc3e85f98f1f9a233341b22e8a54286abcfd216b"
+    },
+    {
+      "packageId": "infiniti.base64",
+      "version": "1.8.6",
+      "apiVersion": "^2.0",
+      "displayName": "Base64",
+      "description": "Encode captured text and binary data, and decode Base64 or MIME-preserving data URLs locally.",
+      "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/base64-v1.8.6/base64-1.8.6.clipsx",
+      "sha256": "e6f61330c7393339ea568af60e32ccbd87b74541b2a65efcd16557cfca1461f9",
+      "contributions": [
+        "detect-base64",
+        "base64-summary",
+        "base64-codec",
+        "encode-base64",
+        "decode-base64"
+      ],
+      "httpOrigins": [],
+      "externalNavigationOrigins": [],
+      "credentialLabels": [],
+      "providers": [],
+      "publisher": {
+        "id": "infiniti",
+        "displayName": "Infiniti",
+        "verified": true
+      },
+      "categories": [
+        "Developer Tools"
+      ],
+      "tags": [
+        "base64",
+        "encoding",
+        "binary"
+      ],
+      "publishedAt": "2026-09-03T00:50:55Z",
+      "updatedAt": "2026-09-03T00:50:55Z",
+      "archiveSizeBytes": 53835,
       "license": "MIT",
       "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/base64",
       "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
