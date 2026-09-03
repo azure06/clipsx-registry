@@ -1,0 +1,35 @@
+{
+  "packageId": "infiniti.ask-ai",
+  "version": "1.0.4",
+  "apiVersion": "^2.0",
+  "displayName": "Ask AI",
+  "description": "Open selected text as an encoded prompt in ChatGPT or Claude.",
+  "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/ask-ai-v1.0.4/ask-ai-1.0.4.clipsx",
+  "sha256": "3116b1989160e4d20cef708bf3da6a7518b06f9eef631e50ed1063aa34ff5c4b",
+  "contributions": ["ask-chatgpt", "ask-claude"],
+  "httpOrigins": [],
+  "externalNavigationOrigins": ["https://chatgpt.com", "https://claude.ai"],
+  "credentialLabels": [],
+  "providers": [],
+  "publisher": { "id": "infiniti", "displayName": "Infiniti", "verified": true },
+  "categories": ["AI", "Productivity"],
+  "tags": ["chatgpt", "claude", "prompt"],
+  "publishedAt": "2026-09-03T00:51:00Z",
+  "updatedAt": "2026-09-03T00:51:00Z",
+  "archiveSizeBytes": 19365,
+  "license": "MIT",
+  "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/ask-ai",
+  "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
+  "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/ask-ai/README.md",
+  "iconAssets": {
+    "light": {
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/ask-ai-light.png",
+      "sha256": "995d6aabf717a26d08205d60a36deab080856d364763595675b4579bd58fda4a"
+    },
+    "dark": {
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/ask-ai-dark.png",
+      "sha256": "e7fc1ba4d201399caff82abddb50132ba04157d3101036336383ac2fa27f90e7"
+    }
+  },
+  "permissionFingerprint": "5dd58f2cc7767e421126f4e4c397c00646964dde48908acac03ba9e4bc6641f1"
+}
