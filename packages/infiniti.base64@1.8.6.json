@@ -1,0 +1,35 @@
+{
+  "packageId": "infiniti.base64",
+  "version": "1.8.6",
+  "apiVersion": "^2.0",
+  "displayName": "Base64",
+  "description": "Encode captured text and binary data, and decode Base64 or MIME-preserving data URLs locally.",
+  "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/base64-v1.8.6/base64-1.8.6.clipsx",
+  "sha256": "e6f61330c7393339ea568af60e32ccbd87b74541b2a65efcd16557cfca1461f9",
+  "contributions": ["detect-base64", "base64-summary", "base64-codec", "encode-base64", "decode-base64"],
+  "httpOrigins": [],
+  "externalNavigationOrigins": [],
+  "credentialLabels": [],
+  "providers": [],
+  "publisher": { "id": "infiniti", "displayName": "Infiniti", "verified": true },
+  "categories": ["Developer Tools"],
+  "tags": ["base64", "encoding", "binary"],
+  "publishedAt": "2026-09-03T00:50:55Z",
+  "updatedAt": "2026-09-03T00:50:55Z",
+  "archiveSizeBytes": 53835,
+  "license": "MIT",
+  "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/base64",
+  "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
+  "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/base64/README.md",
+  "iconAssets": {
+    "light": {
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/base64-light.png",
+      "sha256": "c0aafdf7442a3a881f3a50143c85485dc40aba63e1272f77fe9c754d10dd88ca"
+    },
+    "dark": {
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/base64-dark.png",
+      "sha256": "4cdb9e453d56a7a4315a5ea61b2a02ed7f81103117cc6fc4e96233c019b9e548"
+    }
+  },
+  "permissionFingerprint": "97896e55058af78a5a4e6634cc3e85f98f1f9a233341b22e8a54286abcfd216b"
+}
