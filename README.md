@@ -8,7 +8,8 @@ catalog entries are exact hash-pinned legacy exceptions because GitHub cannot
 apply immutability retroactively.
 
 The registry is a trust root, not a package host. `index.json` contains reviewed
-metadata, archive checksums, catalog-icon checksums, and revocations.
+metadata, archive checksums, catalog-icon checksums, reviewed portable-setting
+declarations, and revocations.
 `index.signatures.json` contains detached Ed25519 signatures over the exact
 bytes of `index.json`.
 
@@ -38,7 +39,10 @@ by a higher version; it is never overwritten.
 5. Run **Publish signed registry**. The protected `registry-signing` environment
    requires manual approval and exposes the signing key only to that job.
 6. Review and merge the generated publication PR containing both live files.
-7. Refresh Discover in a production ClipsX build and complete the smoke test in
+7. The merge automatically dispatches the exact signed revision to `clipsx-web`,
+   which verifies it and transactionally reconciles the private Supabase
+   approval catalog. Confirm that workflow succeeded.
+8. Refresh Discover in a production ClipsX build and complete the smoke test in
    [OPERATIONS.md](OPERATIONS.md).
 
 Never commit a private key. See [OPERATIONS.md](OPERATIONS.md) for revocation,

@@ -12,6 +12,23 @@ contents. Run the protected registry publication workflow last; it generates
 deterministic index bytes and signs those exact bytes. Do not edit generated
 index or signature files manually.
 
+Each package entry must contain a canonically sorted `portableSettings` array.
+It is empty unless the matching immutable archive declares reviewed portable
+boolean or number settings. After the signed publication PR lands on `main`,
+`Sync portable setting approvals` sends the exact registry commit and index
+digest to `clipsx-web`. That workflow rejects stale or invalid signatures and
+replaces `sync_internal.extension_settings` in one transaction. Configure the
+registry secret `CLIPSX_WEB_DISPATCH_TOKEN` with access only to dispatch the web
+workflow, and configure `SUPABASE_DB_URL` only in the web repository's protected
+`production` environment.
+
+Before the first schema-v4 publication, release a ClipsX build that accepts
+registry schema v4. Set the `CLIPSX_EXTENSION_TOOL_REF` repository variable in
+both the extension and registry repositories to the reviewed commit containing
+schema-v4 package tooling; CI and release jobs keep a pinned fallback only for
+the transition. Publishing v4 before a compatible desktop release would leave
+older clients on their last verified v3 cache.
+
 The exact entries in `legacy-releases.json` are the five initial releases made
 before GitHub immutability was enabled. Their signed SHA-256 values still reject
 substituted bytes, but deletion can make them unavailable. Never add another

@@ -98,6 +98,21 @@ for (const packageEntry of packages) {
   if (!/^[a-f0-9]{64}$/.test(packageEntry.permissionFingerprint)) {
     fail(`${identity}: invalid permission fingerprint`)
   }
+  if (!Array.isArray(packageEntry.portableSettings)) {
+    fail(`${identity}: portableSettings must be an array`)
+  }
+  let previousPortableSetting = ''
+  for (const setting of packageEntry.portableSettings) {
+    if (
+      !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(setting?.settingId) ||
+      !['boolean', 'number'].includes(setting?.valueKind) ||
+      setting.settingId <= previousPortableSetting ||
+      Object.keys(setting).sort().join(',') !== 'settingId,valueKind'
+    ) {
+      fail(`${identity}: portable settings must be unique, sorted boolean/number declarations`)
+    }
+    previousPortableSetting = setting.settingId
+  }
   if (!packageEntry.displayName || !packageEntry.description || packageEntry.license !== 'MIT') {
     fail(`${identity}: incomplete reviewed catalog metadata`)
   }
@@ -181,7 +196,7 @@ for (const revocation of revocations) {
 const indexBytes = readFileSync(resolve(root, 'index.json'))
 const index = JSON.parse(indexBytes)
 const signatures = JSON.parse(readFileSync(resolve(root, 'index.signatures.json'), 'utf8'))
-if (index.schemaVersion !== 3 || signatures.schemaVersion !== 1 || !signatures.signatures?.length) {
+if (![3, 4].includes(index.schemaVersion) || signatures.schemaVersion !== 1 || !signatures.signatures?.length) {
   fail('Live registry files use an unsupported or unsigned schema')
 }
 
@@ -236,8 +251,9 @@ if (downloadDirectory) {
       })
       if (result.status !== 0) fail(`${packageEntry.packageId}: host package validation failed`)
       const inspected = JSON.parse(result.stdout.slice(result.stdout.indexOf('{')))
-      for (const field of ['packageId', 'version', 'apiVersion', 'displayName', 'description', 'sha256', 'archiveSizeBytes', 'permissionFingerprint']) {
-        if (inspected[field] !== packageEntry[field]) fail(`${packageEntry.packageId}: ${field} differs from the archive`)
+      for (const field of ['packageId', 'version', 'apiVersion', 'displayName', 'description', 'sha256', 'archiveSizeBytes', 'permissionFingerprint', 'portableSettings']) {
+        if (field === 'portableSettings' && inspected[field] === undefined && packageEntry[field].length === 0) continue
+        if (JSON.stringify(inspected[field]) !== JSON.stringify(packageEntry[field])) fail(`${packageEntry.packageId}: ${field} differs from the archive`)
       }
     }
   }
