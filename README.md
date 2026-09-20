@@ -13,6 +13,13 @@ declarations, and revocations.
 `index.signatures.json` contains detached Ed25519 signatures over the exact
 bytes of `index.json`.
 
+The public signed registry and the private approval catalog have different
+jobs. ClipsX reads the public registry directly for Discover, installation, and
+updates. `clipsx-web` projects only the reviewed portable boolean/number setting
+declarations into Supabase so configuration-sync RPCs can reject forged setting
+IDs. The Supabase projection is not involved in discovering or downloading an
+extension.
+
 ## Identity conventions
 
 - Publisher ID: `infiniti`
@@ -41,7 +48,8 @@ by a higher version; it is never overwritten.
 6. Review and merge the generated publication PR containing both live files.
 7. The merge automatically dispatches the exact signed revision to `clipsx-web`,
    which verifies it and transactionally reconciles the private Supabase
-   approval catalog. Confirm that workflow succeeded.
+   approval catalog. The registry workflow waits for that exact downstream run
+   and fails if reconciliation or readback fails.
 8. Refresh Discover in a production ClipsX build and complete the smoke test in
    [OPERATIONS.md](OPERATIONS.md).
 

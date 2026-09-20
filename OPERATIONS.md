@@ -17,10 +17,30 @@ It is empty unless the matching immutable archive declares reviewed portable
 boolean or number settings. After the signed publication PR lands on `main`,
 `Sync portable setting approvals` sends the exact registry commit and index
 digest to `clipsx-web`. That workflow rejects stale or invalid signatures and
-replaces `sync_internal.extension_settings` in one transaction. Configure the
-registry secret `CLIPSX_WEB_DISPATCH_TOKEN` with access only to dispatch the web
-workflow, and configure `SUPABASE_DB_URL` only in the web repository's protected
-`production` environment.
+replaces `sync_internal.extension_settings` in one transaction. The registry
+workflow follows the uniquely correlated downstream run and reports its result,
+so a green registry run covers dispatch, reconciliation, readback, and artifact
+upload.
+
+## One-time approval-catalog configuration
+
+This setup is not repeated for each extension release:
+
+1. Add `CLIPSX_WEB_DISPATCH_TOKEN` as a repository secret in
+   `clipsx-registry`. Use a fine-grained token restricted to `clipsx-web` with
+   **Contents: read and write** for repository dispatch and **Actions: read**
+   for downstream status. Metadata read access is implicit.
+2. Add `SUPABASE_DB_URL` only to the protected `production` environment in
+   `clipsx-web`. For GitHub-hosted runners, copy the Supabase **Session pooler**
+   URI on port 5432. A direct `db.<project>.supabase.co` URI is suitable only
+   when the project has working IPv4 direct connectivity.
+3. Never commit either value or put the database URI in an application `.env`.
+   Rotate the stored secret only when its credential or endpoint changes.
+
+The public registry used by ClipsX Discover remains separate from this private
+projection. Desktop catalog refresh, package installation, and updates read the
+signed public registry directly; Supabase stores only the allow-list used to
+validate portable extension settings during cloud configuration sync.
 
 Before the first schema-v4 publication, release a ClipsX build that accepts
 registry schema v4. Set the `CLIPSX_EXTENSION_TOOL_REF` repository variable in
@@ -42,6 +62,10 @@ exception or alter an existing tuple; all later releases must be immutable.
   repository immutability. Never add it to `legacy-releases.json`.
 - Publication failure: leave the previous signed index live and rerun only after
   fixing the workflow or metadata.
+- Approval-catalog failure: correct the one-time credential or network setting,
+  then rerun `Sync portable setting approvals`. The downstream workflow can also
+  be run manually with the exact registry commit and `index.json` SHA-256 for
+  recovery; routine publications require no manual dispatch or database update.
 - Registry outage: ClipsX retains its last verified catalog. Never bypass client
   signature checks to recover availability.
 
