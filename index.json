@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "packages": [
     {
       "packageId": "infiniti.ask-ai",
@@ -51,6 +51,7 @@
           "sha256": "e7fc1ba4d201399caff82abddb50132ba04157d3101036336383ac2fa27f90e7"
         }
       },
+      "portableSettings": [],
       "permissionFingerprint": "5dd58f2cc7767e421126f4e4c397c00646964dde48908acac03ba9e4bc6641f1"
     },
     {
@@ -103,6 +104,7 @@
           "sha256": "e7fc1ba4d201399caff82abddb50132ba04157d3101036336383ac2fa27f90e7"
         }
       },
+      "portableSettings": [],
       "permissionFingerprint": "5dd58f2cc7767e421126f4e4c397c00646964dde48908acac03ba9e4bc6641f1"
     },
     {
@@ -154,6 +156,7 @@
           "sha256": "4cdb9e453d56a7a4315a5ea61b2a02ed7f81103117cc6fc4e96233c019b9e548"
         }
       },
+      "portableSettings": [],
       "permissionFingerprint": "97896e55058af78a5a4e6634cc3e85f98f1f9a233341b22e8a54286abcfd216b"
     },
     {
@@ -205,6 +208,7 @@
           "sha256": "4cdb9e453d56a7a4315a5ea61b2a02ed7f81103117cc6fc4e96233c019b9e548"
         }
       },
+      "portableSettings": [],
       "permissionFingerprint": "97896e55058af78a5a4e6634cc3e85f98f1f9a233341b22e8a54286abcfd216b"
     },
     {
@@ -256,6 +260,7 @@
           "sha256": "4cdb9e453d56a7a4315a5ea61b2a02ed7f81103117cc6fc4e96233c019b9e548"
         }
       },
+      "portableSettings": [],
       "permissionFingerprint": "97896e55058af78a5a4e6634cc3e85f98f1f9a233341b22e8a54286abcfd216b"
     },
     {
@@ -327,6 +332,7 @@
           "sha256": "83ddbb2e3b3f956e699079caec044b4cfae8fba8b13a2d20ef854b124c374a28"
         }
       },
+      "portableSettings": [],
       "permissionFingerprint": "97896e55058af78a5a4e6634cc3e85f98f1f9a233341b22e8a54286abcfd216b"
     },
     {
@@ -379,6 +385,65 @@
           "sha256": "e7f2e95f8338e4aae17b5358ca52f82b40a5b434d718074f60ff3cf02a8d32a5"
         }
       },
+      "portableSettings": [],
+      "permissionFingerprint": "97896e55058af78a5a4e6634cc3e85f98f1f9a233341b22e8a54286abcfd216b"
+    },
+    {
+      "packageId": "infiniti.jwt-inspector",
+      "version": "1.2.2",
+      "apiVersion": "^2.0",
+      "displayName": "JWT Inspector",
+      "description": "Inspect JWT headers, claims, and timestamps locally without implying signature verification.",
+      "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/jwt-inspector-v1.2.2/jwt-inspector-1.2.2.clipsx",
+      "sha256": "b8e89c4dcf4f168721bba4fced81b5cc21585cef0f9c76c4c2b7ed07562e679e",
+      "contributions": [
+        "detect-jwt",
+        "jwt-detail",
+        "extract-jwt",
+        "copy-payload"
+      ],
+      "httpOrigins": [],
+      "externalNavigationOrigins": [],
+      "credentialLabels": [],
+      "providers": [],
+      "publisher": {
+        "id": "infiniti",
+        "displayName": "Infiniti",
+        "verified": true
+      },
+      "categories": [
+        "Developer Tools",
+        "Security"
+      ],
+      "tags": [
+        "jwt",
+        "token",
+        "json",
+        "security"
+      ],
+      "publishedAt": "2026-09-20T01:36:42Z",
+      "updatedAt": "2026-09-20T01:36:42Z",
+      "archiveSizeBytes": 44325,
+      "license": "MIT",
+      "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/jwt-inspector",
+      "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
+      "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/jwt-inspector/README.md",
+      "iconAssets": {
+        "light": {
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/jwt-inspector-light.png",
+          "sha256": "baf6df5ae7a9b2cf82f036f4aafd945d4f597024a55da68f6fcb4439164230b6"
+        },
+        "dark": {
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/jwt-inspector-dark.png",
+          "sha256": "e7f2e95f8338e4aae17b5358ca52f82b40a5b434d718074f60ff3cf02a8d32a5"
+        }
+      },
+      "portableSettings": [
+        {
+          "settingId": "show-raw",
+          "valueKind": "boolean"
+        }
+      ],
       "permissionFingerprint": "97896e55058af78a5a4e6634cc3e85f98f1f9a233341b22e8a54286abcfd216b"
     },
     {
@@ -430,6 +495,68 @@
           "sha256": "fe9ac92789d1916f5bfc07758e3eab34acf491c018ccaa48ceb445b8c46d4fdc"
         }
       },
+      "portableSettings": [],
+      "permissionFingerprint": "97896e55058af78a5a4e6634cc3e85f98f1f9a233341b22e8a54286abcfd216b"
+    },
+    {
+      "packageId": "infiniti.mermaid",
+      "version": "1.0.1",
+      "apiVersion": "^2.0",
+      "displayName": "Mermaid",
+      "description": "Fast, offline Mermaid diagrams and enhanced Markdown rendering.",
+      "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/mermaid-v1.0.1/mermaid-1.0.1.clipsx",
+      "sha256": "8c6a80b3cfade2cd77203e568ccb0aac5398cc4524d9840dac203b6f2a4e474d",
+      "contributions": [
+        "detect-mermaid",
+        "mermaid-detail",
+        "markdown-mermaid-detail",
+        "open-mermaid-dialog"
+      ],
+      "httpOrigins": [],
+      "externalNavigationOrigins": [],
+      "credentialLabels": [],
+      "providers": [],
+      "publisher": {
+        "id": "infiniti",
+        "displayName": "Infiniti",
+        "verified": true
+      },
+      "categories": [
+        "Productivity",
+        "Visualization"
+      ],
+      "tags": [
+        "mermaid",
+        "diagram",
+        "markdown"
+      ],
+      "publishedAt": "2026-09-20T01:36:58Z",
+      "updatedAt": "2026-09-20T01:36:58Z",
+      "archiveSizeBytes": 1117599,
+      "license": "MIT",
+      "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/mermaid-viewer",
+      "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
+      "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/mermaid-viewer/README.md",
+      "iconAssets": {
+        "light": {
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/mermaid-light.png",
+          "sha256": "fe9ac92789d1916f5bfc07758e3eab34acf491c018ccaa48ceb445b8c46d4fdc"
+        },
+        "dark": {
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/mermaid-dark.png",
+          "sha256": "fe9ac92789d1916f5bfc07758e3eab34acf491c018ccaa48ceb445b8c46d4fdc"
+        }
+      },
+      "portableSettings": [
+        {
+          "settingId": "fit-diagram",
+          "valueKind": "boolean"
+        },
+        {
+          "settingId": "show-source",
+          "valueKind": "boolean"
+        }
+      ],
       "permissionFingerprint": "97896e55058af78a5a4e6634cc3e85f98f1f9a233341b22e8a54286abcfd216b"
     }
   ],
