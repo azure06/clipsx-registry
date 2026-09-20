@@ -12,18 +12,47 @@ permissions:
 jobs:
   dispatch:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
       - name: Validate the exact signed publication
         run: npm ci && npm run validate -- --require-current
       - name: Dispatch the immutable registry revision
+        id: dispatch
         env:
           GH_TOKEN: ${{ secrets.CLIPSX_WEB_DISPATCH_TOKEN }}
         shell: bash
         run: |
           set -euo pipefail
           index_sha256="$(sha256sum index.json | cut -d ' ' -f 1)"
+          dispatch_id="${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           gh api --method POST repos/azure06/clipsx-web/dispatches \
             -f event_type=registry-published \
             -F client_payload[registry_sha]="${GITHUB_SHA}" \
-            -F client_payload[index_sha256]="$index_sha256"
+            -F client_payload[index_sha256]="$index_sha256" \
+            -F client_payload[dispatch_id]="$dispatch_id"
+          echo "dispatch_id=$dispatch_id" >> "$GITHUB_OUTPUT"
+      - name: Wait for approval-catalog reconciliation
+        env:
+          GH_TOKEN: ${{ secrets.CLIPSX_WEB_DISPATCH_TOKEN }}
+          DOWNSTREAM_TITLE: Apply portable setting approvals (${{ steps.dispatch.outputs.dispatch_id }})
+        shell: bash
+        run: |
+          set -euo pipefail
+          downstream_run_id=""
+          for attempt in $(seq 1 30); do
+            downstream_run_id="$(gh run list \
+              --repo azure06/clipsx-web \
+              --workflow sync-portable-settings.yml \
+              --event repository_dispatch \
+              --limit 50 \
+              --json databaseId,displayTitle \
+              --jq "[.[] | select(.displayTitle == \"$DOWNSTREAM_TITLE\")][0].databaseId // empty")"
+            if [[ -n "$downstream_run_id" ]]; then break; fi
+            sleep 2
+          done
+          if [[ -z "$downstream_run_id" ]]; then
+            echo "::error::The clipsx-web reconciliation run was not discovered within 60 seconds."
+            exit 1
+          fi
+          gh run watch "$downstream_run_id" --repo azure06/clipsx-web --exit-status
