@@ -1,11 +1,11 @@
 {
   "packageId": "infiniti.jwt-inspector",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "apiVersion": "^2.0",
   "displayName": "JWT Inspector",
   "description": "Inspect JWT headers, claims, and timestamps locally without implying signature verification.",
-  "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/jwt-inspector-v1.2.1/jwt-inspector-1.2.1.clipsx",
-  "sha256": "fc28fe0f15568b62a8e1f2391dfc33041099f0159b65a99fde9ffdf7b8c2f5ec",
+  "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/jwt-inspector-v1.2.2/jwt-inspector-1.2.2.clipsx",
+  "sha256": "b8e89c4dcf4f168721bba4fced81b5cc21585cef0f9c76c4c2b7ed07562e679e",
   "contributions": ["detect-jwt", "jwt-detail", "extract-jwt", "copy-payload"],
   "httpOrigins": [],
   "externalNavigationOrigins": [],
@@ -14,9 +14,9 @@
   "publisher": { "id": "infiniti", "displayName": "Infiniti", "verified": true },
   "categories": ["Developer Tools", "Security"],
   "tags": ["jwt", "token", "json", "security"],
-  "publishedAt": "2026-08-31T23:39:57Z",
-  "updatedAt": "2026-08-31T23:39:57Z",
-  "archiveSizeBytes": 44265,
+  "publishedAt": "2026-09-20T01:36:42Z",
+  "updatedAt": "2026-09-20T01:36:42Z",
+  "archiveSizeBytes": 44325,
   "license": "MIT",
   "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/jwt-inspector",
   "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
@@ -31,6 +31,8 @@
       "sha256": "e7f2e95f8338e4aae17b5358ca52f82b40a5b434d718074f60ff3cf02a8d32a5"
     }
   },
-  "portableSettings": [],
+  "portableSettings": [
+    { "settingId": "show-raw", "valueKind": "boolean" }
+  ],
   "permissionFingerprint": "97896e55058af78a5a4e6634cc3e85f98f1f9a233341b22e8a54286abcfd216b"
 }

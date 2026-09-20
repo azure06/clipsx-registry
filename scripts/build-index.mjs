@@ -16,5 +16,5 @@ const revocations = JSON.parse(readFileSync(resolve(root, 'revocations.json'), '
 
 writeFileSync(
   resolve(root, 'index.json'),
-  `${JSON.stringify({ schemaVersion: 3, packages, revocations }, null, 2)}\n`
+  `${JSON.stringify({ schemaVersion: 4, packages, revocations }, null, 2)}\n`
 )

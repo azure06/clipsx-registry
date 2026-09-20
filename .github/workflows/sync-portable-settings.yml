@@ -1,0 +1,29 @@
+name: Sync portable setting approvals
+
+on:
+  push:
+    branches: [main]
+    paths: [index.json, index.signatures.json]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Validate the exact signed publication
+        run: npm ci && npm run validate -- --require-current
+      - name: Dispatch the immutable registry revision
+        env:
+          GH_TOKEN: ${{ secrets.CLIPSX_WEB_DISPATCH_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          index_sha256="$(sha256sum index.json | cut -d ' ' -f 1)"
+          gh api --method POST repos/azure06/clipsx-web/dispatches \
+            -f event_type=registry-published \
+            -F client_payload[registry_sha]="${GITHUB_SHA}" \
+            -F client_payload[index_sha256]="$index_sha256"
