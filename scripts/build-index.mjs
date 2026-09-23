@@ -7,6 +7,7 @@ const packages = readdirSync(resolve(root, 'packages'), { withFileTypes: true })
   .filter(entry => entry.isFile() && entry.name.endsWith('.json'))
   .map(entry => JSON.parse(readFileSync(resolve(root, 'packages', entry.name), 'utf8')))
   .sort((left, right) => compare(left.packageId, right.packageId) || compare(left.version, right.version))
+if (packages.length === 0) throw new Error('Cannot publish an empty extension registry')
 const revocations = JSON.parse(readFileSync(resolve(root, 'revocations.json'), 'utf8')).sort(
   (left, right) =>
     compare(left.packageId, right.packageId) ||
