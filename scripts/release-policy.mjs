@@ -12,15 +12,7 @@ export const expectedRelease = packageEntry => {
   }
 }
 
-export const isLegacyRelease = (packageEntry, legacyReleases) =>
-  legacyReleases.some(
-    entry =>
-      entry.packageId === packageEntry.packageId &&
-      entry.version === packageEntry.version &&
-      entry.sha256 === packageEntry.sha256
-  )
-
-export const validatePublishedRelease = (packageEntry, release, legacyReleases) => {
+export const validatePublishedRelease = (packageEntry, release) => {
   const expected = expectedRelease(packageEntry)
   if (packageEntry.releaseUrl !== expected.url) {
     throw new Error(`${packageEntry.packageId}@${packageEntry.version}: unexpected release URL`)
@@ -38,7 +30,7 @@ export const validatePublishedRelease = (packageEntry, release, legacyReleases) 
   ) {
     throw new Error(`${packageEntry.packageId}@${packageEntry.version}: GitHub asset metadata does not match the registry`)
   }
-  if (release.immutable !== true && !isLegacyRelease(packageEntry, legacyReleases)) {
+  if (release.immutable !== true) {
     throw new Error(`${packageEntry.packageId}@${packageEntry.version}: release is not immutable`)
   }
 }

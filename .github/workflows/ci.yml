@@ -20,7 +20,7 @@ jobs:
         with:
           repository: azure06/clipsx
           path: clipsx-host
-          ref: ${{ vars.CLIPSX_EXTENSION_TOOL_REF || '953850ef6b13651d4cce31ca0f4b114f4386fc6c' }}
+          ref: ${{ vars.CLIPSX_EXTENSION_TOOL_REF || 'develop' }}
       - name: Install host validator dependencies
         run: |
           sudo apt-get update
@@ -34,11 +34,11 @@ jobs:
           EXTENSION_TOOL: ${{ github.workspace }}/clipsx-host/src-tauri/target/debug/clipsx-extension-tool
           REGISTRY_BASE_SHA: ${{ github.event.pull_request.base.sha }}
           GITHUB_TOKEN: ${{ github.token }}
-        run: npm run validate -- --download-dir .downloads --verify-releases
-      - name: Require generated files to match reviewed sources
+        run: npm run validate:source -- --download-dir .downloads --verify-releases
+      - name: Validate signed publication when present
         if: github.event_name == 'pull_request'
         shell: bash
         run: |
-          if git diff --name-only "${{ github.event.pull_request.base.sha }}"...HEAD | grep -Eq '^(index\.json|index\.signatures\.json)$'; then
+          if [[ -f index.json && -f index.signatures.json ]]; then
             npm run validate -- --require-current
           fi
