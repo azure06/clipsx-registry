@@ -9,6 +9,7 @@ const args = new Set(process.argv.slice(2))
 const downloadIndex = process.argv.indexOf('--download-dir')
 const downloadDirectory = downloadIndex >= 0 ? resolve(process.argv[downloadIndex + 1]) : null
 const requireCurrent = args.has('--require-current')
+const sourceOnly = args.has('--source-only')
 const verifyReleases = args.has('--verify-releases')
 const sha256 = bytes => createHash('sha256').update(bytes).digest('hex')
 const compare = (left, right) => (left < right ? -1 : left > right ? 1 : 0)
@@ -53,22 +54,7 @@ const packages = packageFiles.map(name =>
   JSON.parse(readFileSync(resolve(root, 'packages', name), 'utf8'))
 )
 const revocations = JSON.parse(readFileSync(resolve(root, 'revocations.json'), 'utf8'))
-const legacyReleases = JSON.parse(readFileSync(resolve(root, 'legacy-releases.json'), 'utf8'))
 const identities = new Set()
-const legacyIdentities = new Set()
-
-for (const entry of legacyReleases) {
-  const identity = `${entry.packageId}@${entry.version}`
-  if (
-    !/^infiniti\.[a-z0-9]+(?:-[a-z0-9]+)*$/.test(entry.packageId) ||
-    !/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/.test(entry.version) ||
-    !/^[a-f0-9]{64}$/.test(entry.sha256) ||
-    legacyIdentities.has(identity)
-  ) {
-    fail(`${identity}: invalid legacy release policy`)
-  }
-  legacyIdentities.add(identity)
-}
 
 for (const packageEntry of packages) {
   const identity = `${packageEntry.packageId}@${packageEntry.version}`
@@ -80,7 +66,7 @@ for (const packageEntry of packages) {
   }
   if (identities.has(identity)) fail(`${identity}: duplicate package release`)
   identities.add(identity)
-  if (packageEntry.apiVersion !== '^2.0') fail(`${identity}: unsupported API range`)
+  if (packageEntry.apiVersion !== '^3.0') fail(`${identity}: unsupported API range`)
   if (
     packageEntry.publisher?.id !== 'infiniti' ||
     packageEntry.publisher?.displayName !== 'Infiniti' ||
@@ -113,7 +99,7 @@ for (const packageEntry of packages) {
     }
     previousPortableSetting = setting.settingId
   }
-  if (!packageEntry.displayName || !packageEntry.description || packageEntry.license !== 'MIT') {
+  if (!packageEntry.displayName || !packageEntry.description || !['MIT', 'Apache-2.0'].includes(packageEntry.license)) {
     fail(`${identity}: incomplete reviewed catalog metadata`)
   }
   if (!Array.isArray(packageEntry.categories) || packageEntry.categories.length < 1 || packageEntry.categories.length > 5) {
@@ -141,18 +127,6 @@ for (const packageEntry of packages) {
   }
 }
 
-for (const legacy of legacyReleases) {
-  if (
-    !packages.some(
-      packageEntry =>
-        packageEntry.packageId === legacy.packageId &&
-        packageEntry.version === legacy.version &&
-        packageEntry.sha256 === legacy.sha256
-    )
-  ) {
-    fail(`${legacy.packageId}@${legacy.version}: unused or altered legacy release policy`)
-  }
-}
 
 const baseSha = process.env.REGISTRY_BASE_SHA
 if (baseSha) {
@@ -193,10 +167,11 @@ for (const revocation of revocations) {
   }
 }
 
+if (!sourceOnly) {
 const indexBytes = readFileSync(resolve(root, 'index.json'))
 const index = JSON.parse(indexBytes)
 const signatures = JSON.parse(readFileSync(resolve(root, 'index.signatures.json'), 'utf8'))
-if (![3, 4].includes(index.schemaVersion) || signatures.schemaVersion !== 1 || !signatures.signatures?.length) {
+if (index.schemaVersion !== 4 || signatures.schemaVersion !== 1 || !signatures.signatures?.length) {
   fail('Live registry files use an unsupported or unsigned schema')
 }
 
@@ -231,6 +206,7 @@ if (requireCurrent) {
   if (JSON.stringify(index.packages) !== JSON.stringify(normalizedPackages) || JSON.stringify(index.revocations) !== JSON.stringify(normalizedRevocations)) {
     fail('Live index does not match reviewed package and revocation sources')
   }
+}
 }
 
 if (downloadDirectory) {
@@ -275,7 +251,7 @@ if (verifyReleases) {
     if (!response.ok) {
       fail(`${packageEntry.packageId}: GitHub release lookup failed (${response.status})`)
     }
-    validatePublishedRelease(packageEntry, await response.json(), legacyReleases)
+    validatePublishedRelease(packageEntry, await response.json())
   }
 }
 

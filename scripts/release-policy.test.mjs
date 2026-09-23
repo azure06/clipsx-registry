@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { expectedRelease, isLegacyRelease, validatePublishedRelease } from './release-policy.mjs'
+import { expectedRelease, validatePublishedRelease } from './release-policy.mjs'
 
 const packageEntry = {
   packageId: 'infiniti.base64',
@@ -34,39 +34,22 @@ test('derives the only accepted release tag, asset, and URL', () => {
   })
 })
 
-test('accepts only an exact legacy identity and checksum', () => {
-  const legacy = [
-    {
-      packageId: packageEntry.packageId,
-      version: packageEntry.version,
-      sha256: packageEntry.sha256,
-    },
-  ]
-  assert.equal(isLegacyRelease(packageEntry, legacy), true)
-  assert.equal(isLegacyRelease({ ...packageEntry, sha256: 'b'.repeat(64) }, legacy), false)
-  assert.doesNotThrow(() => validatePublishedRelease(packageEntry, release, legacy))
-  assert.throws(
-    () => validatePublishedRelease({ ...packageEntry, sha256: 'b'.repeat(64) }, release, legacy),
-    /asset metadata/
-  )
-})
-
-test('rejects a mutable release that is not an exact legacy exception', () => {
-  assert.throws(() => validatePublishedRelease(packageEntry, release, []), /not immutable/)
-  assert.doesNotThrow(() => validatePublishedRelease(packageEntry, { ...release, immutable: true }, []))
+test('requires immutable releases', () => {
+  assert.throws(() => validatePublishedRelease(packageEntry, release), /not immutable/)
+  assert.doesNotThrow(() => validatePublishedRelease(packageEntry, { ...release, immutable: true }))
 })
 
 test('rejects altered repository, tag, asset, size, and digest metadata', () => {
   assert.throws(
-    () => validatePublishedRelease({ ...packageEntry, releaseUrl: 'https://example.com/package' }, release, []),
+    () => validatePublishedRelease({ ...packageEntry, releaseUrl: 'https://example.com/package' }, release),
     /unexpected release URL/
   )
   assert.throws(
-    () => validatePublishedRelease(packageEntry, { ...release, tag_name: 'other-v1.8.5' }, []),
+    () => validatePublishedRelease(packageEntry, { ...release, tag_name: 'other-v1.8.5' }),
     /expected tag/
   )
   assert.throws(
-    () => validatePublishedRelease(packageEntry, { ...release, assets: [] }, []),
+    () => validatePublishedRelease(packageEntry, { ...release, assets: [] }),
     /asset metadata/
   )
 })

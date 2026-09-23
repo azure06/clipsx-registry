@@ -8,7 +8,8 @@
     "icons": "node scripts/render-icons.mjs",
     "sign": "node scripts/sign-index.mjs",
     "test": "node --test scripts/*.test.mjs",
-    "validate": "node scripts/validate.mjs"
+    "validate": "node scripts/validate.mjs",
+    "validate:source": "node scripts/validate.mjs --source-only"
   },
   "dependencies": {
     "sharp": "0.35.4"

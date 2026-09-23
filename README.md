@@ -3,15 +3,14 @@
 The official signed catalog for [ClipsX](https://github.com/azure06/clipsx).
 Package source and checksum-pinned `.clipsx` release assets live in
 [`azure06/clipsx-extensions`](https://github.com/azure06/clipsx-extensions).
-GitHub release immutability is enforced for new releases. The five initial
-catalog entries are exact hash-pinned legacy exceptions because GitHub cannot
-apply immutability retroactively.
+Every catalog release must be immutable and built for Extension API v3.
 
-The registry is a trust root, not a package host. `index.json` contains reviewed
-metadata, archive checksums, catalog-icon checksums, reviewed portable-setting
-declarations, and revocations.
-`index.signatures.json` contains detached Ed25519 signatures over the exact
-bytes of `index.json`.
+The registry is a trust root, not a package host. Reviewed package records in
+`packages/` and `revocations.json` are the source. The protected publication
+workflow generates `index.json` with metadata, checksums, portable-setting
+declarations, and revocations, then creates `index.signatures.json` with
+detached Ed25519 signatures over the exact index bytes. The v3 reset needs its
+first signed publication before the catalog URL is live again.
 
 The public signed registry and the private approval catalog have different
 jobs. ClipsX reads the public registry directly for Discover, installation, and

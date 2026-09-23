@@ -15,9 +15,20 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Check for a signed publication
+        id: signed
+        shell: bash
+        run: |
+          if [[ -f index.json && -f index.signatures.json ]]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+          fi
       - name: Validate the exact signed publication
+        if: steps.signed.outputs.present == 'true'
         run: npm ci && npm run validate -- --require-current
       - name: Dispatch the immutable registry revision
+        if: steps.signed.outputs.present == 'true'
         id: dispatch
         env:
           GH_TOKEN: ${{ secrets.CLIPSX_WEB_DISPATCH_TOKEN }}
@@ -33,6 +44,7 @@ jobs:
             -F client_payload[dispatch_id]="$dispatch_id"
           echo "dispatch_id=$dispatch_id" >> "$GITHUB_OUTPUT"
       - name: Wait for approval-catalog reconciliation
+        if: steps.signed.outputs.present == 'true'
         env:
           GH_TOKEN: ${{ secrets.CLIPSX_WEB_DISPATCH_TOKEN }}
           DOWNSTREAM_TITLE: Apply portable setting approvals (${{ steps.dispatch.outputs.dispatch_id }})

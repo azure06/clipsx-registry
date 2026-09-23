@@ -42,24 +42,24 @@ projection. Desktop catalog refresh, package installation, and updates read the
 signed public registry directly; Supabase stores only the allow-list used to
 validate portable extension settings during cloud configuration sync.
 
-Before the first schema-v4 publication, release a ClipsX build that accepts
-registry schema v4. Set the `CLIPSX_EXTENSION_TOOL_REF` repository variable in
-both the extension and registry repositories to the reviewed commit containing
-schema-v4 package tooling; CI and release jobs keep a pinned fallback only for
-the transition. Publishing v4 before a compatible desktop release would leave
-older clients on their last verified v3 cache.
+Set `CLIPSX_EXTENSION_TOOL_REF` in the extension and registry repositories to
+the reviewed v3 host commit before running publication workflows. All catalog
+releases must be immutable.
 
-The exact entries in `legacy-releases.json` are the five initial releases made
-before GitHub immutability was enabled. Their signed SHA-256 values still reject
-substituted bytes, but deletion can make them unavailable. Never add another
-exception or alter an existing tuple; all later releases must be immutable.
+For the v3 reset, publish the six new package versions from
+`clipsx-extensions`, add their generated `.registry.json` metadata under
+`packages/` after reviewing archive and icon hashes, then run **Publish signed
+registry**. Merge its generated publication pull request. That signed-index
+merge dispatches the portable-setting reconciliation to `clipsx-web`; the
+empty interim catalog has no portable-setting approvals and requires no
+Supabase schema migration.
 
 ## Failure handling
 
 - Validation failure: correct the source or publish a new extension version. Do
   not replace an existing release asset.
 - Mutable release: discard the draft or publish a higher version after fixing
-  repository immutability. Never add it to `legacy-releases.json`.
+  repository immutability.
 - Publication failure: leave the previous signed index live and rerun only after
   fixing the workflow or metadata.
 - Approval-catalog failure: correct the one-time credential or network setting,
