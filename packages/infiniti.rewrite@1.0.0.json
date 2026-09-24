@@ -1,0 +1,70 @@
+{
+  "apiVersion": "^3.0",
+  "archiveSizeBytes": 37569,
+  "description": "Rewrite copied text with the configured local generation model.",
+  "displayName": "Rewrite",
+  "packageId": "infiniti.rewrite",
+  "permissionFingerprint": "d1d14a7e94f49b1ee473d274d9a4fc536927d9ff792a021bdcba3d9920c25b79",
+  "permissionReport": {
+    "backgroundClipCreated": true,
+    "credentials": [],
+    "externalNavigation": [],
+    "http": [],
+    "packageState": false,
+    "providers": [
+      "generation.text"
+    ],
+    "selectedInput": true,
+    "sourceApplication": true
+  },
+  "portableSettings": [],
+  "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/rewrite-v1.0.0/rewrite-1.0.0.clipsx",
+  "sha256": "84bb9e629dac405477c18b9987ae183f11a8eacb095c65adba7c5f3de5b7c073",
+  "version": "1.0.0",
+  "contributions": [
+    "rewrite",
+    "business",
+    "casual",
+    "concise",
+    "improve-writing",
+    "translate",
+    "custom"
+  ],
+  "httpOrigins": [],
+  "externalNavigationOrigins": [],
+  "credentialLabels": [],
+  "providers": [
+    "generation.text"
+  ],
+  "publisher": {
+    "id": "infiniti",
+    "displayName": "Infiniti",
+    "verified": true
+  },
+  "categories": [
+    "AI",
+    "Productivity"
+  ],
+  "tags": [
+    "rewrite",
+    "writing",
+    "translation",
+    "automation"
+  ],
+  "publishedAt": "2026-09-23T13:55:31Z",
+  "updatedAt": "2026-09-23T13:55:31Z",
+  "license": "Apache-2.0",
+  "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/rewrite",
+  "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
+  "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/rewrite/README.md",
+  "iconAssets": {
+    "light": {
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/rewrite-light.png",
+      "sha256": "51b738254cd09b433988231bf1a0c552546a8eff96d73db770e00bbf238a1e47"
+    },
+    "dark": {
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/rewrite-dark.png",
+      "sha256": "e1e37368348d2192ca0ef208e9b5e708672e6f83ee1465dc3127d8e5e1472839"
+    }
+  }
+}

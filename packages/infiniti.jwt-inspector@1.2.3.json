@@ -1,0 +1,68 @@
+{
+  "apiVersion": "^3.0",
+  "archiveSizeBytes": 44514,
+  "description": "Inspect JWT headers, claims, and timestamps locally without implying signature verification.",
+  "displayName": "JWT Inspector",
+  "packageId": "infiniti.jwt-inspector",
+  "permissionFingerprint": "e82946a8cd2f608290faf3cc8cd2af0ae3733a5549d799d2aa44c6c0724dc437",
+  "permissionReport": {
+    "backgroundClipCreated": false,
+    "credentials": [],
+    "externalNavigation": [],
+    "http": [],
+    "packageState": false,
+    "providers": [],
+    "selectedInput": false,
+    "sourceApplication": false
+  },
+  "portableSettings": [
+    {
+      "settingId": "show-raw",
+      "valueKind": "boolean"
+    }
+  ],
+  "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/jwt-inspector-v1.2.3/jwt-inspector-1.2.3.clipsx",
+  "sha256": "111dad80ae3916c914e53e040765252ee964ae7e763955f0a96564ae35ba5777",
+  "version": "1.2.3",
+  "contributions": [
+    "detect-jwt",
+    "jwt-detail",
+    "extract-jwt",
+    "copy-payload"
+  ],
+  "httpOrigins": [],
+  "externalNavigationOrigins": [],
+  "credentialLabels": [],
+  "providers": [],
+  "publisher": {
+    "id": "infiniti",
+    "displayName": "Infiniti",
+    "verified": true
+  },
+  "categories": [
+    "Developer Tools",
+    "Security"
+  ],
+  "tags": [
+    "jwt",
+    "token",
+    "json",
+    "security"
+  ],
+  "publishedAt": "2026-09-23T13:55:47Z",
+  "updatedAt": "2026-09-23T13:55:47Z",
+  "license": "MIT",
+  "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/jwt-inspector",
+  "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
+  "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/jwt-inspector/README.md",
+  "iconAssets": {
+    "light": {
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/jwt-inspector-light.png",
+      "sha256": "baf6df5ae7a9b2cf82f036f4aafd945d4f597024a55da68f6fcb4439164230b6"
+    },
+    "dark": {
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/jwt-inspector-dark.png",
+      "sha256": "e7f2e95f8338e4aae17b5358ca52f82b40a5b434d718074f60ff3cf02a8d32a5"
+    }
+  }
+}
