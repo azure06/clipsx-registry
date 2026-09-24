@@ -42,9 +42,10 @@ projection. Desktop catalog refresh, package installation, and updates read the
 signed public registry directly; Supabase stores only the allow-list used to
 validate portable extension settings during cloud configuration sync.
 
-Set `CLIPSX_EXTENSION_TOOL_REF` in the extension and registry repositories to
-the reviewed v3 host commit before running publication workflows. All catalog
-releases must be immutable.
+The extension and registry workflows pin the reviewed v3 host package tool by
+full commit SHA. Update those pins together when the host package contract
+changes; do not point publication at a moving branch. All catalog releases
+must be immutable.
 
 For the v3 reset, publish the six new package versions from
 `clipsx-extensions`, add their generated `.registry.json` metadata under

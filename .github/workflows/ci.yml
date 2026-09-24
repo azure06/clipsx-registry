@@ -20,7 +20,7 @@ jobs:
         with:
           repository: azure06/clipsx
           path: clipsx-host
-          ref: ${{ vars.CLIPSX_EXTENSION_TOOL_REF || 'develop' }}
+          ref: 858cc275e5c73512691d284e19d92a27958581cb
       - name: Install host validator dependencies
         run: |
           sudo apt-get update
@@ -35,10 +35,21 @@ jobs:
           REGISTRY_BASE_SHA: ${{ github.event.pull_request.base.sha }}
           GITHUB_TOKEN: ${{ github.token }}
         run: npm run validate:source -- --download-dir .downloads --verify-releases
-      - name: Validate signed publication when present
-        if: github.event_name == 'pull_request'
+      - name: Validate existing signature and require atomic signed publication
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
         shell: bash
         run: |
-          if [[ -f index.json && -f index.signatures.json ]]; then
-            npm run validate -- --require-current
+          set -euo pipefail
+          if [[ -n "$BASE_SHA" ]] && git cat-file -e "$BASE_SHA:index.json" 2>/dev/null; then
+            test -f index.json && test -f index.signatures.json
+          fi
+          if [[ -f index.json || -f index.signatures.json ]]; then
+            test -f index.json && test -f index.signatures.json
+            npm run validate
+          fi
+          if [[ "${{ github.event_name }}" == 'pull_request' ]]; then
+            if ! git diff --quiet "$BASE_SHA" -- index.json index.signatures.json; then
+              npm run validate -- --require-current
+            fi
           fi

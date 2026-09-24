@@ -53,6 +53,7 @@ const packageFiles = readdirSync(resolve(root, 'packages'))
 const packages = packageFiles.map(name =>
   JSON.parse(readFileSync(resolve(root, 'packages', name), 'utf8'))
 )
+if (packages.length === 0) fail('Registry must contain at least one reviewed package release')
 const revocations = JSON.parse(readFileSync(resolve(root, 'revocations.json'), 'utf8'))
 const identities = new Set()
 

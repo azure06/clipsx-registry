@@ -1,0 +1,71 @@
+{
+  "apiVersion": "^3.0",
+  "archiveSizeBytes": 1117881,
+  "description": "Fast, offline Mermaid diagrams and enhanced Markdown rendering.",
+  "displayName": "Mermaid",
+  "packageId": "infiniti.mermaid",
+  "permissionFingerprint": "e82946a8cd2f608290faf3cc8cd2af0ae3733a5549d799d2aa44c6c0724dc437",
+  "permissionReport": {
+    "backgroundClipCreated": false,
+    "credentials": [],
+    "externalNavigation": [],
+    "http": [],
+    "packageState": false,
+    "providers": [],
+    "selectedInput": false,
+    "sourceApplication": false
+  },
+  "portableSettings": [
+    {
+      "settingId": "fit-diagram",
+      "valueKind": "boolean"
+    },
+    {
+      "settingId": "show-source",
+      "valueKind": "boolean"
+    }
+  ],
+  "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/mermaid-v1.0.2/mermaid-1.0.2.clipsx",
+  "sha256": "a48f2cedd285a988a0252d7ff31df6b85215f3a2457cba1fa20f9486e7659ab7",
+  "version": "1.0.2",
+  "contributions": [
+    "detect-mermaid",
+    "mermaid-detail",
+    "markdown-mermaid-detail",
+    "open-mermaid-dialog"
+  ],
+  "httpOrigins": [],
+  "externalNavigationOrigins": [],
+  "credentialLabels": [],
+  "providers": [],
+  "publisher": {
+    "id": "infiniti",
+    "displayName": "Infiniti",
+    "verified": true
+  },
+  "categories": [
+    "Productivity",
+    "Visualization"
+  ],
+  "tags": [
+    "mermaid",
+    "diagram",
+    "markdown"
+  ],
+  "publishedAt": "2026-09-23T13:55:51Z",
+  "updatedAt": "2026-09-23T13:55:51Z",
+  "license": "MIT",
+  "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/mermaid-viewer",
+  "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
+  "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/mermaid-viewer/README.md",
+  "iconAssets": {
+    "light": {
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/mermaid-light.png",
+      "sha256": "fe9ac92789d1916f5bfc07758e3eab34acf491c018ccaa48ceb445b8c46d4fdc"
+    },
+    "dark": {
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/mermaid-dark.png",
+      "sha256": "fe9ac92789d1916f5bfc07758e3eab34acf491c018ccaa48ceb445b8c46d4fdc"
+    }
+  }
+}

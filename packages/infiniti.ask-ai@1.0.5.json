@@ -1,0 +1,70 @@
+{
+  "apiVersion": "^3.0",
+  "archiveSizeBytes": 19629,
+  "description": "Open selected text as an encoded prompt in ChatGPT or Claude.",
+  "displayName": "Ask AI",
+  "packageId": "infiniti.ask-ai",
+  "permissionFingerprint": "1ee89a51782e8c0788ee53e9896bcd045e351442497087f12a919f8ba33a9481",
+  "permissionReport": {
+    "backgroundClipCreated": false,
+    "credentials": [],
+    "externalNavigation": [
+      {
+        "origin": "https://chatgpt.com"
+      },
+      {
+        "origin": "https://claude.ai"
+      }
+    ],
+    "http": [],
+    "packageState": false,
+    "providers": [],
+    "selectedInput": false,
+    "sourceApplication": false
+  },
+  "portableSettings": [],
+  "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/ask-ai-v1.0.5/ask-ai-1.0.5.clipsx",
+  "sha256": "4cfd9e96ae24e39ba780ada4eb79ef30b059eabde2a0572de7c4421ec8285392",
+  "version": "1.0.5",
+  "contributions": [
+    "ask-chatgpt",
+    "ask-claude"
+  ],
+  "httpOrigins": [],
+  "externalNavigationOrigins": [
+    "https://chatgpt.com",
+    "https://claude.ai"
+  ],
+  "credentialLabels": [],
+  "providers": [],
+  "publisher": {
+    "id": "infiniti",
+    "displayName": "Infiniti",
+    "verified": true
+  },
+  "categories": [
+    "AI",
+    "Productivity"
+  ],
+  "tags": [
+    "chatgpt",
+    "claude",
+    "prompt"
+  ],
+  "publishedAt": "2026-09-23T13:56:16Z",
+  "updatedAt": "2026-09-23T13:56:16Z",
+  "license": "MIT",
+  "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/ask-ai",
+  "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
+  "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/ask-ai/README.md",
+  "iconAssets": {
+    "light": {
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/ask-ai-light.png",
+      "sha256": "995d6aabf717a26d08205d60a36deab080856d364763595675b4579bd58fda4a"
+    },
+    "dark": {
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/ask-ai-dark.png",
+      "sha256": "e7fc1ba4d201399caff82abddb50132ba04157d3101036336383ac2fa27f90e7"
+    }
+  }
+}
