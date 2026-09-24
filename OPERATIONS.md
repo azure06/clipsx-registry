@@ -47,13 +47,10 @@ full commit SHA. Update those pins together when the host package contract
 changes; do not point publication at a moving branch. All catalog releases
 must be immutable.
 
-For the v3 reset, publish the six new package versions from
-`clipsx-extensions`, add their generated `.registry.json` metadata under
-`packages/` after reviewing archive and icon hashes, then run **Publish signed
-registry**. Merge its generated publication pull request. That signed-index
-merge dispatches the portable-setting reconciliation to `clipsx-web`; the
-empty interim catalog has no portable-setting approvals and requires no
-Supabase schema migration.
+Catalog publication uses the existing `sync_internal.extension_settings` table;
+adding or updating extension releases does not require a Supabase schema
+migration. The signed-index merge dispatches the portable-setting
+reconciliation to `clipsx-web`.
 
 ## Failure handling
 

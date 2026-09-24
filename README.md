@@ -9,8 +9,8 @@ The registry is a trust root, not a package host. Reviewed package records in
 `packages/` and `revocations.json` are the source. The protected publication
 workflow generates `index.json` with metadata, checksums, portable-setting
 declarations, and revocations, then creates `index.signatures.json` with
-detached Ed25519 signatures over the exact index bytes. The v3 reset needs its
-first signed publication before the catalog URL is live again.
+detached Ed25519 signatures over the exact index bytes. ClipsX reads these
+published files directly for Discover and installation.
 
 The public signed registry and the private approval catalog have different
 jobs. ClipsX reads the public registry directly for Discover, installation, and
