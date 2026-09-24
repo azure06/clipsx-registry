@@ -52,6 +52,11 @@ jobs:
             echo "Registry is already current."
             exit 0
           fi
+          current_main="$(git ls-remote origin refs/heads/main | cut -f 1)"
+          if [[ -z "$current_main" || "$current_main" != "$GITHUB_SHA" ]]; then
+            echo "::error::Registry main changed since this run started. Rerun Publish signed registry from current main."
+            exit 1
+          fi
           branch="registry-publication-${GITHUB_RUN_ID}"
           git config user.name "clipsx-registry[bot]"
           git config user.email "clipsx-registry[bot]@users.noreply.github.com"
