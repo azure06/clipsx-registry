@@ -1,46 +1,28 @@
 {
-  "apiVersion": "^3.0",
-  "archiveSizeBytes": 290846,
+  "apiVersion": "^3.2",
+  "archiveSizeBytes": 293307,
   "description": "Convert tables, structured data, TypeScript shapes, and URLs locally.",
   "displayName": "Data Tools",
   "packageId": "infiniti.data-tools",
-  "permissionFingerprint": "e82946a8cd2f608290faf3cc8cd2af0ae3733a5549d799d2aa44c6c0724dc437",
+  "permissionFingerprint": "39f56b88ed748994454d4c5ab068674a9b9722a10c59c73379fc2bfed9dbce13",
   "permissionReport": {
     "backgroundClipCreated": false,
     "credentials": [],
     "externalNavigation": [],
+    "externalWrites": [],
     "http": [],
     "packageState": false,
     "providers": [],
-    "selectedInput": false,
+    "selectedInput": true,
     "sourceApplication": false
   },
   "portableSettings": [],
-  "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/data-tools-v1.1.1/data-tools-1.1.1.clipsx",
-  "sha256": "bb8eb060ab6b013861fa6f931bbb533ace7e242937fac00ae8b9de3f97fe8bd5",
-  "version": "1.1.1",
+  "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/data-tools-v2.0.0/data-tools-2.0.0.clipsx",
+  "sha256": "97e3e736ce8cfa9b1b75405ab498423d7bd3682a47c1b850318383da0ee491cb",
+  "version": "2.0.0",
   "contributions": [
     "markdown-table-detector",
-    "data-transform",
-    "json-to-csv",
-    "json-to-tsv",
-    "json-to-markdown",
-    "json-to-yaml",
-    "json-to-toml",
-    "json-to-typescript",
-    "table-to-json",
-    "table-to-csv",
-    "table-to-tsv",
-    "table-to-markdown",
-    "markdown-table-to-json",
-    "markdown-table-to-csv",
-    "markdown-table-to-tsv",
-    "yaml-to-json",
-    "toml-to-json",
-    "url-encode",
-    "url-decode",
-    "url-normalize",
-    "url-query-to-json"
+    "data-transform"
   ],
   "httpOrigins": [],
   "externalNavigationOrigins": [],
@@ -63,19 +45,19 @@
     "typescript",
     "url"
   ],
-  "publishedAt": "2026-09-23T13:56:21Z",
-  "updatedAt": "2026-09-23T13:56:21Z",
+  "publishedAt": "2026-09-27T14:59:27Z",
+  "updatedAt": "2026-09-27T14:59:27Z",
   "license": "MIT",
   "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/data-tools",
   "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
   "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/data-tools/README.md",
   "iconAssets": {
     "light": {
-      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/data-tools-light.png",
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/data-tools-2.0.0-light.png",
       "sha256": "5d00a7a7a5d6a70f47f72738f49293c2e302daf8b14901f5f66b62bf73c5618a"
     },
     "dark": {
-      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/data-tools-dark.png",
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/data-tools-2.0.0-dark.png",
       "sha256": "83ddbb2e3b3f956e699079caec044b4cfae8fba8b13a2d20ef854b124c374a28"
     }
   }
