@@ -1,30 +1,29 @@
 {
-  "apiVersion": "^3.0",
-  "archiveSizeBytes": 54126,
+  "apiVersion": "^3.2",
+  "archiveSizeBytes": 58605,
   "description": "Encode captured text and binary data, and decode Base64 or MIME-preserving data URLs locally.",
   "displayName": "Base64",
   "packageId": "infiniti.base64",
-  "permissionFingerprint": "e82946a8cd2f608290faf3cc8cd2af0ae3733a5549d799d2aa44c6c0724dc437",
+  "permissionFingerprint": "39f56b88ed748994454d4c5ab068674a9b9722a10c59c73379fc2bfed9dbce13",
   "permissionReport": {
     "backgroundClipCreated": false,
     "credentials": [],
     "externalNavigation": [],
+    "externalWrites": [],
     "http": [],
     "packageState": false,
     "providers": [],
-    "selectedInput": false,
+    "selectedInput": true,
     "sourceApplication": false
   },
   "portableSettings": [],
-  "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/base64-v1.8.8/base64-1.8.8.clipsx",
-  "sha256": "49a6d375ff4c8a728d3e11fedd43efb53532b186ec483d8d5dc201bc67e24f8b",
-  "version": "1.8.8",
+  "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/base64-v2.0.0/base64-2.0.0.clipsx",
+  "sha256": "ad748aa862d6d9f49bc201e5361ede4f28cb62f946e852f345c4b38c61ea926c",
+  "version": "2.0.0",
   "contributions": [
     "detect-base64",
     "base64-summary",
-    "base64-codec",
-    "encode-base64",
-    "decode-base64"
+    "base64-codec"
   ],
   "httpOrigins": [],
   "externalNavigationOrigins": [],
@@ -43,19 +42,19 @@
     "encoding",
     "binary"
   ],
-  "publishedAt": "2026-09-23T13:56:09Z",
-  "updatedAt": "2026-09-23T13:56:09Z",
+  "publishedAt": "2026-09-27T14:59:04Z",
+  "updatedAt": "2026-09-27T14:59:04Z",
   "license": "MIT",
   "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/base64",
   "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
   "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/base64/README.md",
   "iconAssets": {
     "light": {
-      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/base64-light.png",
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/base64-2.0.0-light.png",
       "sha256": "c0aafdf7442a3a881f3a50143c85485dc40aba63e1272f77fe9c754d10dd88ca"
     },
     "dark": {
-      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/base64-dark.png",
+      "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/base64-2.0.0-dark.png",
       "sha256": "4cdb9e453d56a7a4315a5ea61b2a02ed7f81103117cc6fc4e96233c019b9e548"
     }
   }

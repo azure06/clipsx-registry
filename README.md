@@ -3,7 +3,8 @@
 The official signed catalog for [ClipsX](https://github.com/azure06/clipsx).
 Package source and checksum-pinned `.clipsx` release assets live in
 [`azure06/clipsx-extensions`](https://github.com/azure06/clipsx-extensions).
-Every catalog release must be immutable and built for Extension API v3.
+Every current catalog release must be immutable and use Extension API v3.2.
+The previous signed index remains verifiable until its protected replacement is merged.
 
 The registry is a trust root, not a package host. Reviewed package records in
 `packages/` and `revocations.json` are the source. The protected publication

@@ -67,7 +67,7 @@ for (const packageEntry of packages) {
   }
   if (identities.has(identity)) fail(`${identity}: duplicate package release`)
   identities.add(identity)
-  if (packageEntry.apiVersion !== '^3.0') fail(`${identity}: unsupported API range`)
+  if (packageEntry.apiVersion !== '^3.2') fail(`${identity}: unsupported API range`)
   if (
     packageEntry.publisher?.id !== 'infiniti' ||
     packageEntry.publisher?.displayName !== 'Infiniti' ||
