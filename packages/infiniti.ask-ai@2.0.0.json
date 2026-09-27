@@ -33,12 +33,8 @@
   ],
   "httpOrigins": [],
   "externalNavigationOrigins": [
-    {
-      "origin": "https://chatgpt.com"
-    },
-    {
-      "origin": "https://claude.ai"
-    }
+    "https://chatgpt.com",
+    "https://claude.ai"
   ],
   "credentialLabels": [],
   "providers": [],
