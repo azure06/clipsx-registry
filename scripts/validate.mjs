@@ -3,6 +3,7 @@ import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { basename, resolve } from 'node:path'
 import { spawnSync } from 'node:child_process'
 import { expectedRelease, validatePublishedRelease } from './release-policy.mjs'
+import { invalidHostStringArray } from './catalog-shape.mjs'
 
 const root = resolve(import.meta.dirname, '..')
 const args = new Set(process.argv.slice(2))
@@ -87,6 +88,14 @@ for (const packageEntry of packages) {
   }
   if (!Array.isArray(packageEntry.portableSettings)) {
     fail(`${identity}: portableSettings must be an array`)
+  }
+  const invalidField = invalidHostStringArray(packageEntry)
+  if (invalidField) fail(`${identity}: ${invalidField} must be an array of strings for the ClipsX host`)
+  if (
+    JSON.stringify(packageEntry.externalNavigationOrigins) !==
+    JSON.stringify(packageEntry.permissionReport?.externalNavigation?.map(item => item.origin))
+  ) {
+    fail(`${identity}: external navigation origins do not match declared permissions`)
   }
   let previousPortableSetting = ''
   for (const setting of packageEntry.portableSettings) {
@@ -195,6 +204,10 @@ const signatureValid = signatures.signatures.some(signature => {
 if (!signatureValid) fail('Live index has no valid trusted signature')
 
 if (requireCurrent) {
+  for (const published of index.packages) {
+    const invalidField = invalidHostStringArray(published)
+    if (invalidField) fail(`${published.packageId}: signed ${invalidField} must be an array of strings for the ClipsX host`)
+  }
   const normalizedPackages = [...packages].sort(
     (left, right) => compare(left.packageId, right.packageId) || compare(left.version, right.version)
   )
@@ -228,7 +241,7 @@ if (downloadDirectory) {
       })
       if (result.status !== 0) fail(`${packageEntry.packageId}: host package validation failed`)
       const inspected = JSON.parse(result.stdout.slice(result.stdout.indexOf('{')))
-      for (const field of ['packageId', 'version', 'apiVersion', 'displayName', 'description', 'sha256', 'archiveSizeBytes', 'permissionFingerprint', 'portableSettings']) {
+      for (const field of ['packageId', 'version', 'apiVersion', 'displayName', 'description', 'sha256', 'archiveSizeBytes', 'permissionFingerprint', 'permissionReport', 'portableSettings']) {
         if (field === 'portableSettings' && inspected[field] === undefined && packageEntry[field].length === 0) continue
         if (JSON.stringify(inspected[field]) !== JSON.stringify(packageEntry[field])) fail(`${packageEntry.packageId}: ${field} differs from the archive`)
       }
