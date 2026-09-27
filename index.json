@@ -2,12 +2,12 @@
   "schemaVersion": 4,
   "packages": [
     {
-      "apiVersion": "^3.0",
-      "archiveSizeBytes": 19629,
+      "apiVersion": "^3.2",
+      "archiveSizeBytes": 19607,
       "description": "Open selected text as an encoded prompt in ChatGPT or Claude.",
       "displayName": "Ask AI",
       "packageId": "infiniti.ask-ai",
-      "permissionFingerprint": "1ee89a51782e8c0788ee53e9896bcd045e351442497087f12a919f8ba33a9481",
+      "permissionFingerprint": "9d4124056d6a136327359ba2765d0856da22ef952ae95daee4fde3d756357796",
       "permissionReport": {
         "backgroundClipCreated": false,
         "credentials": [],
@@ -19,24 +19,29 @@
             "origin": "https://claude.ai"
           }
         ],
+        "externalWrites": [],
         "http": [],
         "packageState": false,
         "providers": [],
-        "selectedInput": false,
+        "selectedInput": true,
         "sourceApplication": false
       },
       "portableSettings": [],
-      "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/ask-ai-v1.0.5/ask-ai-1.0.5.clipsx",
-      "sha256": "4cfd9e96ae24e39ba780ada4eb79ef30b059eabde2a0572de7c4421ec8285392",
-      "version": "1.0.5",
+      "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/ask-ai-v2.0.0/ask-ai-2.0.0.clipsx",
+      "sha256": "fac904354f759a08a39b806b48eb045fdbb558ed576f9804f254be0af5af8724",
+      "version": "2.0.0",
       "contributions": [
         "ask-chatgpt",
         "ask-claude"
       ],
       "httpOrigins": [],
       "externalNavigationOrigins": [
-        "https://chatgpt.com",
-        "https://claude.ai"
+        {
+          "origin": "https://chatgpt.com"
+        },
+        {
+          "origin": "https://claude.ai"
+        }
       ],
       "credentialLabels": [],
       "providers": [],
@@ -54,50 +59,49 @@
         "claude",
         "prompt"
       ],
-      "publishedAt": "2026-09-23T13:56:16Z",
-      "updatedAt": "2026-09-23T13:56:16Z",
+      "publishedAt": "2026-09-27T14:58:43Z",
+      "updatedAt": "2026-09-27T14:58:43Z",
       "license": "MIT",
       "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/ask-ai",
       "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
       "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/ask-ai/README.md",
       "iconAssets": {
         "light": {
-          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/ask-ai-light.png",
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/ask-ai-2.0.0-light.png",
           "sha256": "995d6aabf717a26d08205d60a36deab080856d364763595675b4579bd58fda4a"
         },
         "dark": {
-          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/ask-ai-dark.png",
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/ask-ai-2.0.0-dark.png",
           "sha256": "e7fc1ba4d201399caff82abddb50132ba04157d3101036336383ac2fa27f90e7"
         }
       }
     },
     {
-      "apiVersion": "^3.0",
-      "archiveSizeBytes": 54126,
+      "apiVersion": "^3.2",
+      "archiveSizeBytes": 58605,
       "description": "Encode captured text and binary data, and decode Base64 or MIME-preserving data URLs locally.",
       "displayName": "Base64",
       "packageId": "infiniti.base64",
-      "permissionFingerprint": "e82946a8cd2f608290faf3cc8cd2af0ae3733a5549d799d2aa44c6c0724dc437",
+      "permissionFingerprint": "39f56b88ed748994454d4c5ab068674a9b9722a10c59c73379fc2bfed9dbce13",
       "permissionReport": {
         "backgroundClipCreated": false,
         "credentials": [],
         "externalNavigation": [],
+        "externalWrites": [],
         "http": [],
         "packageState": false,
         "providers": [],
-        "selectedInput": false,
+        "selectedInput": true,
         "sourceApplication": false
       },
       "portableSettings": [],
-      "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/base64-v1.8.8/base64-1.8.8.clipsx",
-      "sha256": "49a6d375ff4c8a728d3e11fedd43efb53532b186ec483d8d5dc201bc67e24f8b",
-      "version": "1.8.8",
+      "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/base64-v2.0.0/base64-2.0.0.clipsx",
+      "sha256": "ad748aa862d6d9f49bc201e5361ede4f28cb62f946e852f345c4b38c61ea926c",
+      "version": "2.0.0",
       "contributions": [
         "detect-base64",
         "base64-summary",
-        "base64-codec",
-        "encode-base64",
-        "decode-base64"
+        "base64-codec"
       ],
       "httpOrigins": [],
       "externalNavigationOrigins": [],
@@ -116,66 +120,48 @@
         "encoding",
         "binary"
       ],
-      "publishedAt": "2026-09-23T13:56:09Z",
-      "updatedAt": "2026-09-23T13:56:09Z",
+      "publishedAt": "2026-09-27T14:59:04Z",
+      "updatedAt": "2026-09-27T14:59:04Z",
       "license": "MIT",
       "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/base64",
       "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
       "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/base64/README.md",
       "iconAssets": {
         "light": {
-          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/base64-light.png",
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/base64-2.0.0-light.png",
           "sha256": "c0aafdf7442a3a881f3a50143c85485dc40aba63e1272f77fe9c754d10dd88ca"
         },
         "dark": {
-          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/base64-dark.png",
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/base64-2.0.0-dark.png",
           "sha256": "4cdb9e453d56a7a4315a5ea61b2a02ed7f81103117cc6fc4e96233c019b9e548"
         }
       }
     },
     {
-      "apiVersion": "^3.0",
-      "archiveSizeBytes": 290846,
+      "apiVersion": "^3.2",
+      "archiveSizeBytes": 293307,
       "description": "Convert tables, structured data, TypeScript shapes, and URLs locally.",
       "displayName": "Data Tools",
       "packageId": "infiniti.data-tools",
-      "permissionFingerprint": "e82946a8cd2f608290faf3cc8cd2af0ae3733a5549d799d2aa44c6c0724dc437",
+      "permissionFingerprint": "39f56b88ed748994454d4c5ab068674a9b9722a10c59c73379fc2bfed9dbce13",
       "permissionReport": {
         "backgroundClipCreated": false,
         "credentials": [],
         "externalNavigation": [],
+        "externalWrites": [],
         "http": [],
         "packageState": false,
         "providers": [],
-        "selectedInput": false,
+        "selectedInput": true,
         "sourceApplication": false
       },
       "portableSettings": [],
-      "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/data-tools-v1.1.1/data-tools-1.1.1.clipsx",
-      "sha256": "bb8eb060ab6b013861fa6f931bbb533ace7e242937fac00ae8b9de3f97fe8bd5",
-      "version": "1.1.1",
+      "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/data-tools-v2.0.0/data-tools-2.0.0.clipsx",
+      "sha256": "97e3e736ce8cfa9b1b75405ab498423d7bd3682a47c1b850318383da0ee491cb",
+      "version": "2.0.0",
       "contributions": [
         "markdown-table-detector",
-        "data-transform",
-        "json-to-csv",
-        "json-to-tsv",
-        "json-to-markdown",
-        "json-to-yaml",
-        "json-to-toml",
-        "json-to-typescript",
-        "table-to-json",
-        "table-to-csv",
-        "table-to-tsv",
-        "table-to-markdown",
-        "markdown-table-to-json",
-        "markdown-table-to-csv",
-        "markdown-table-to-tsv",
-        "yaml-to-json",
-        "toml-to-json",
-        "url-encode",
-        "url-decode",
-        "url-normalize",
-        "url-query-to-json"
+        "data-transform"
       ],
       "httpOrigins": [],
       "externalNavigationOrigins": [],
@@ -198,38 +184,39 @@
         "typescript",
         "url"
       ],
-      "publishedAt": "2026-09-23T13:56:21Z",
-      "updatedAt": "2026-09-23T13:56:21Z",
+      "publishedAt": "2026-09-27T14:59:27Z",
+      "updatedAt": "2026-09-27T14:59:27Z",
       "license": "MIT",
       "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/data-tools",
       "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
       "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/data-tools/README.md",
       "iconAssets": {
         "light": {
-          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/data-tools-light.png",
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/data-tools-2.0.0-light.png",
           "sha256": "5d00a7a7a5d6a70f47f72738f49293c2e302daf8b14901f5f66b62bf73c5618a"
         },
         "dark": {
-          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/data-tools-dark.png",
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/data-tools-2.0.0-dark.png",
           "sha256": "83ddbb2e3b3f956e699079caec044b4cfae8fba8b13a2d20ef854b124c374a28"
         }
       }
     },
     {
-      "apiVersion": "^3.0",
-      "archiveSizeBytes": 44514,
+      "apiVersion": "^3.2",
+      "archiveSizeBytes": 47011,
       "description": "Inspect JWT headers, claims, and timestamps locally without implying signature verification.",
       "displayName": "JWT Inspector",
       "packageId": "infiniti.jwt-inspector",
-      "permissionFingerprint": "e82946a8cd2f608290faf3cc8cd2af0ae3733a5549d799d2aa44c6c0724dc437",
+      "permissionFingerprint": "39f56b88ed748994454d4c5ab068674a9b9722a10c59c73379fc2bfed9dbce13",
       "permissionReport": {
         "backgroundClipCreated": false,
         "credentials": [],
         "externalNavigation": [],
+        "externalWrites": [],
         "http": [],
         "packageState": false,
         "providers": [],
-        "selectedInput": false,
+        "selectedInput": true,
         "sourceApplication": false
       },
       "portableSettings": [
@@ -238,14 +225,13 @@
           "valueKind": "boolean"
         }
       ],
-      "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/jwt-inspector-v1.2.3/jwt-inspector-1.2.3.clipsx",
-      "sha256": "111dad80ae3916c914e53e040765252ee964ae7e763955f0a96564ae35ba5777",
-      "version": "1.2.3",
+      "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/jwt-inspector-v2.0.0/jwt-inspector-2.0.0.clipsx",
+      "sha256": "cbf4890687c85103b47785278f63b5c80f9ab09a373f2a4d43f5cd236ac4c21a",
+      "version": "2.0.0",
       "contributions": [
         "detect-jwt",
         "jwt-detail",
-        "extract-jwt",
-        "copy-payload"
+        "extract-jwt"
       ],
       "httpOrigins": [],
       "externalNavigationOrigins": [],
@@ -266,34 +252,35 @@
         "json",
         "security"
       ],
-      "publishedAt": "2026-09-23T13:55:47Z",
-      "updatedAt": "2026-09-23T13:55:47Z",
+      "publishedAt": "2026-09-27T14:58:22Z",
+      "updatedAt": "2026-09-27T14:58:22Z",
       "license": "MIT",
       "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/jwt-inspector",
       "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
       "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/jwt-inspector/README.md",
       "iconAssets": {
         "light": {
-          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/jwt-inspector-light.png",
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/jwt-inspector-2.0.0-light.png",
           "sha256": "baf6df5ae7a9b2cf82f036f4aafd945d4f597024a55da68f6fcb4439164230b6"
         },
         "dark": {
-          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/jwt-inspector-dark.png",
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/jwt-inspector-2.0.0-dark.png",
           "sha256": "e7f2e95f8338e4aae17b5358ca52f82b40a5b434d718074f60ff3cf02a8d32a5"
         }
       }
     },
     {
-      "apiVersion": "^3.0",
-      "archiveSizeBytes": 1117881,
+      "apiVersion": "^3.2",
+      "archiveSizeBytes": 1117709,
       "description": "Fast, offline Mermaid diagrams and enhanced Markdown rendering.",
       "displayName": "Mermaid",
       "packageId": "infiniti.mermaid",
-      "permissionFingerprint": "e82946a8cd2f608290faf3cc8cd2af0ae3733a5549d799d2aa44c6c0724dc437",
+      "permissionFingerprint": "52cb2e5bf056edbc8be62deb3151145e182ab525f6d1e8975a62358012325447",
       "permissionReport": {
         "backgroundClipCreated": false,
         "credentials": [],
         "externalNavigation": [],
+        "externalWrites": [],
         "http": [],
         "packageState": false,
         "providers": [],
@@ -310,9 +297,9 @@
           "valueKind": "boolean"
         }
       ],
-      "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/mermaid-v1.0.2/mermaid-1.0.2.clipsx",
-      "sha256": "a48f2cedd285a988a0252d7ff31df6b85215f3a2457cba1fa20f9486e7659ab7",
-      "version": "1.0.2",
+      "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/mermaid-v2.0.0/mermaid-2.0.0.clipsx",
+      "sha256": "cdd81594eae356d9b9c2a05d302c1c35e2e341768b619647f632cce84af8ca8b",
+      "version": "2.0.0",
       "contributions": [
         "detect-mermaid",
         "mermaid-detail",
@@ -337,34 +324,35 @@
         "diagram",
         "markdown"
       ],
-      "publishedAt": "2026-09-23T13:55:51Z",
-      "updatedAt": "2026-09-23T13:55:51Z",
+      "publishedAt": "2026-09-27T14:58:48Z",
+      "updatedAt": "2026-09-27T14:58:48Z",
       "license": "MIT",
       "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/mermaid-viewer",
       "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
       "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/mermaid-viewer/README.md",
       "iconAssets": {
         "light": {
-          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/mermaid-light.png",
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/mermaid-2.0.0-light.png",
           "sha256": "fe9ac92789d1916f5bfc07758e3eab34acf491c018ccaa48ceb445b8c46d4fdc"
         },
         "dark": {
-          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/mermaid-dark.png",
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/mermaid-2.0.0-dark.png",
           "sha256": "fe9ac92789d1916f5bfc07758e3eab34acf491c018ccaa48ceb445b8c46d4fdc"
         }
       }
     },
     {
-      "apiVersion": "^3.0",
-      "archiveSizeBytes": 37569,
+      "apiVersion": "^3.2",
+      "archiveSizeBytes": 47555,
       "description": "Rewrite copied text with the configured local generation model.",
       "displayName": "Rewrite",
       "packageId": "infiniti.rewrite",
-      "permissionFingerprint": "d1d14a7e94f49b1ee473d274d9a4fc536927d9ff792a021bdcba3d9920c25b79",
+      "permissionFingerprint": "f592a6c57f60b6d078197ea9c4000ce548bc92f69b7e572fdf75a929dc1a123e",
       "permissionReport": {
         "backgroundClipCreated": true,
         "credentials": [],
         "externalNavigation": [],
+        "externalWrites": [],
         "http": [],
         "packageState": false,
         "providers": [
@@ -374,17 +362,11 @@
         "sourceApplication": true
       },
       "portableSettings": [],
-      "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/rewrite-v1.0.0/rewrite-1.0.0.clipsx",
-      "sha256": "84bb9e629dac405477c18b9987ae183f11a8eacb095c65adba7c5f3de5b7c073",
-      "version": "1.0.0",
+      "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/rewrite-v2.0.0/rewrite-2.0.0.clipsx",
+      "sha256": "88a7278e14afe81b211f317bb66f1b5d07f823523b12d7ee452b2c4b5dde30a2",
+      "version": "2.0.0",
       "contributions": [
-        "rewrite",
-        "business",
-        "casual",
-        "concise",
-        "improve-writing",
-        "translate",
-        "custom"
+        "rewrite"
       ],
       "httpOrigins": [],
       "externalNavigationOrigins": [],
@@ -407,20 +389,20 @@
         "translation",
         "automation"
       ],
-      "publishedAt": "2026-09-23T13:55:31Z",
-      "updatedAt": "2026-09-23T13:55:31Z",
+      "publishedAt": "2026-09-27T14:59:10Z",
+      "updatedAt": "2026-09-27T14:59:10Z",
       "license": "Apache-2.0",
       "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/rewrite",
       "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
       "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/rewrite/README.md",
       "iconAssets": {
         "light": {
-          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/rewrite-light.png",
-          "sha256": "51b738254cd09b433988231bf1a0c552546a8eff96d73db770e00bbf238a1e47"
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/rewrite-2.0.0-light.png",
+          "sha256": "60d8615056a7c36ca1162313f642613dc47880beeb98346089e26dcb94a59b52"
         },
         "dark": {
-          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/rewrite-dark.png",
-          "sha256": "e1e37368348d2192ca0ef208e9b5e708672e6f83ee1465dc3127d8e5e1472839"
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/rewrite-2.0.0-dark.png",
+          "sha256": "dc0a00e2f13400af3ab7c5ff40a354dfc68ee412e16733a78f0783a45df32160"
         }
       }
     }
