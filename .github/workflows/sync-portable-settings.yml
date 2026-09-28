@@ -27,8 +27,14 @@ jobs:
       - name: Validate the exact signed publication
         if: steps.signed.outputs.present == 'true'
         run: npm ci && npm run validate -- --require-current
-      - name: Dispatch the immutable registry revision
+      - name: Verify publication at the app URLs
         if: steps.signed.outputs.present == 'true'
+        id: public
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/verify-publication.mjs
+      - name: Dispatch the immutable registry revision
+        if: steps.public.outputs.current == 'true'
         id: dispatch
         env:
           GH_TOKEN: ${{ secrets.CLIPSX_WEB_DISPATCH_TOKEN }}
@@ -44,7 +50,8 @@ jobs:
             -F client_payload[dispatch_id]="$dispatch_id"
           echo "dispatch_id=$dispatch_id" >> "$GITHUB_OUTPUT"
       - name: Wait for approval-catalog reconciliation
-        if: steps.signed.outputs.present == 'true'
+        if: steps.public.outputs.current == 'true'
+        id: reconcile
         env:
           GH_TOKEN: ${{ secrets.CLIPSX_WEB_DISPATCH_TOKEN }}
           DOWNSTREAM_TITLE: Apply portable setting approvals (${{ steps.dispatch.outputs.dispatch_id }})
@@ -68,3 +75,11 @@ jobs:
             exit 1
           fi
           gh run watch "$downstream_run_id" --repo azure06/clipsx-web --exit-status
+      - name: Report publication and reconciliation separately
+        if: always()
+        env:
+          PUBLICATION: ${{ steps.public.outcome }}
+          RECONCILIATION: ${{ steps.reconcile.outcome }}
+        run: |
+          echo "Catalog URL verification: $PUBLICATION" >> "$GITHUB_STEP_SUMMARY"
+          echo "Portable-setting reconciliation: $RECONCILIATION" >> "$GITHUB_STEP_SUMMARY"

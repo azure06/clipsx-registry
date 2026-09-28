@@ -35,23 +35,22 @@ by a higher version; it is never overwritten.
 
 ## Publication
 
-1. Merge the versioned extension after its package CI passes, then manually run
-   **Publish extension release** for that package. A merge alone never publishes.
-2. Verify GitHub reports the resulting release as immutable and publicly
-   downloadable.
-3. Add or update one reviewed file under `packages/`, including the exact archive
-   and icon hashes.
-4. Merge the metadata PR after registry CI independently downloads and validates
-   the release.
-5. Run **Publish signed registry**. The protected `registry-signing` environment
-   requires manual approval and exposes the signing key only to that job.
-6. Review and merge the generated publication PR containing both live files.
-7. The merge automatically dispatches the exact signed revision to `clipsx-web`,
-   which verifies it and transactionally reconciles the private Supabase
-   approval catalog. The registry workflow waits for that exact downstream run
-   and fails if reconciliation or readback fails.
-8. Refresh Discover in a production ClipsX build and complete the smoke test in
-   [OPERATIONS.md](OPERATIONS.md).
+1. A versioned extension PR prepares tested archives once. Merging it publishes
+   those exact immutable bytes and opens or updates a registry metadata PR.
+2. Trusted registry automation imports and verifies the exact archive identity,
+   digest, permissions and icons. It builds the complete candidate catalog and
+   checks it with the same parser used by Discover.
+3. A separate trusted workflow signs validated bytes and commits `index.json`
+   and `index.signatures.json` into that same metadata PR. It never executes
+   PR-controlled code. The final `publication-ready` check verifies both files
+   exactly match their reviewed sources.
+4. Merge this complete PR to publish at the existing raw URLs. There is no
+   additional publication PR, human signing approval or routine manual dispatch.
+5. The merge verifies public bytes and triggers `clipsx-web` reconciliation and
+   readback. Publication and database reconciliation have separate status.
+6. Refresh Discover and follow [OPERATIONS.md](OPERATIONS.md) for installed
+   checks, credentials, revocation and recovery. Agent work uses the
+   [publication skill](.agents/skills/clipsx-registry-publication/SKILL.md).
 
 Never commit a private key. See [OPERATIONS.md](OPERATIONS.md) for revocation,
 key rotation, and recovery.

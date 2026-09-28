@@ -1,0 +1,74 @@
+name: Prepare registry publication
+on:
+  pull_request_target:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+  statuses: write
+concurrency:
+  group: registry-candidate-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+jobs:
+  prepare:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      # Only trusted base code is checked out. PR Git blobs are copied as bounded data.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - id: candidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/prepare-publication.mjs preflight
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        if: steps.candidate.outputs.sign_required == 'true'
+        with:
+          repository: azure06/clipsx
+          path: clipsx-host
+          ref: ${{ steps.candidate.outputs.tool_ref }}
+          persist-credentials: false
+      - uses: actions/cache@v4
+        if: steps.candidate.outputs.sign_required == 'true'
+        with:
+          path: clipsx-host/src-tauri/target
+          key: registry-host-${{ runner.os }}-${{ steps.candidate.outputs.tool_ref }}-${{ hashFiles('clipsx-host/src-tauri/Cargo.lock') }}
+      - name: Build trusted validator
+        if: steps.candidate.outputs.sign_required == 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf libxdo-dev
+          cargo build --locked --manifest-path clipsx-host/src-tauri/Cargo.toml --bin clipsx-extension-tool
+      - name: Verify exact archives and actual Discover contract
+        if: steps.candidate.outputs.sign_required == 'true'
+        env:
+          EXTENSION_TOOL: ${{ github.workspace }}/clipsx-host/src-tauri/target/debug/clipsx-extension-tool
+          GITHUB_TOKEN: ${{ github.token }}
+          CANDIDATE_ROOT: ${{ steps.candidate.outputs.root }}
+        run: |
+          node scripts/validate.mjs --source-only --registry-dir "$CANDIDATE_ROOT" --download-dir .downloads --verify-releases
+          "$EXTENSION_TOOL" validate-registry "$CANDIDATE_ROOT/index.json"
+      - name: Fence and record signing candidate
+        if: steps.candidate.outputs.sign_required == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CANDIDATE_ROOT: ${{ steps.candidate.outputs.root }}
+          EXPECTED_HEAD: ${{ steps.candidate.outputs.head_sha }}
+        run: node scripts/prepare-publication.mjs ready
+      - uses: actions/upload-artifact@v4
+        if: steps.candidate.outputs.sign_required == 'true'
+        with:
+          name: prepared-index
+          path: |
+            ${{ steps.candidate.outputs.root }}/index.json
+            ${{ steps.candidate.outputs.root }}/evidence.json
+          retention-days: 90
+          if-no-files-found: error
+      - name: Report preparation failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/prepare-publication.mjs failed

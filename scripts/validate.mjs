@@ -1,11 +1,13 @@
-import { createHash, createPublicKey, verify } from 'node:crypto'
+import { createHash } from 'node:crypto'
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { basename, resolve } from 'node:path'
 import { spawnSync } from 'node:child_process'
 import { expectedRelease, validatePublishedRelease } from './release-policy.mjs'
 import { invalidHostStringArray } from './catalog-shape.mjs'
+import { hasTrustedSignature } from './catalog-signature.mjs'
 
-const root = resolve(import.meta.dirname, '..')
+const registryArgument = process.argv.indexOf('--registry-dir')
+const root = registryArgument < 0 ? resolve(import.meta.dirname, '..') : resolve(process.argv[registryArgument + 1])
 const args = new Set(process.argv.slice(2))
 const downloadIndex = process.argv.indexOf('--download-dir')
 const downloadDirectory = downloadIndex >= 0 ? resolve(process.argv[downloadIndex + 1]) : null
@@ -188,19 +190,7 @@ if (index.schemaVersion !== 4 || signatures.schemaVersion !== 1 || !signatures.s
 const keys = readdirSync(resolve(root, 'keys'))
   .filter(name => name.endsWith('.json'))
   .map(name => JSON.parse(readFileSync(resolve(root, 'keys', name), 'utf8')))
-const signatureValid = signatures.signatures.some(signature => {
-  const key = keys.find(candidate => candidate.keyId === signature.keyId)
-  if (!key || key.algorithm !== 'ed25519' || signature.algorithm !== 'ed25519') return false
-  const raw = Buffer.from(key.publicKeyBase64, 'base64')
-  if (raw.length !== 32) return false
-  const spki = Buffer.concat([Buffer.from('302a300506032b6570032100', 'hex'), raw])
-  return verify(
-    null,
-    indexBytes,
-    createPublicKey({ key: spki, format: 'der', type: 'spki' }),
-    Buffer.from(signature.signature, 'base64')
-  )
-})
+const signatureValid = hasTrustedSignature(indexBytes, signatures, keys)
 if (!signatureValid) fail('Live index has no valid trusted signature')
 
 if (requireCurrent) {
@@ -241,8 +231,7 @@ if (downloadDirectory) {
       })
       if (result.status !== 0) fail(`${packageEntry.packageId}: host package validation failed`)
       const inspected = JSON.parse(result.stdout.slice(result.stdout.indexOf('{')))
-      for (const field of ['packageId', 'version', 'apiVersion', 'displayName', 'description', 'sha256', 'archiveSizeBytes', 'permissionFingerprint', 'permissionReport', 'portableSettings']) {
-        if (field === 'portableSettings' && inspected[field] === undefined && packageEntry[field].length === 0) continue
+      for (const field of ['packageId', 'version', 'apiVersion', 'displayName', 'description', 'license', 'contributions', 'httpOrigins', 'externalNavigationOrigins', 'credentialLabels', 'providers', 'sha256', 'archiveSizeBytes', 'permissionFingerprint', 'permissionReport', 'portableSettings']) {
         if (JSON.stringify(inspected[field]) !== JSON.stringify(packageEntry[field])) fail(`${packageEntry.packageId}: ${field} differs from the archive`)
       }
     }

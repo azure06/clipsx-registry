@@ -2,7 +2,7 @@ import { createPrivateKey, sign } from 'node:crypto'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
-const root = resolve(import.meta.dirname, '..')
+const root = process.argv[2] ? resolve(process.argv[2]) : resolve(import.meta.dirname, '..')
 const index = readFileSync(resolve(root, 'index.json'))
 const keyPairs = [
   [process.env.CLIPSX_REGISTRY_KEY_ID, process.env.CLIPSX_REGISTRY_SIGNING_KEY_PEM],
