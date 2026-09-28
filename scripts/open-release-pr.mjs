@@ -15,7 +15,13 @@ const existing = await api(`pulls?state=open&head=azure06:${encodeURIComponent(b
 const main = await api('git/ref/heads/main')
 const branches = await api(`git/matching-refs/heads/${branch}`)
 const reference = branches.find(ref => ref.ref === `refs/heads/${branch}`)
-const parentSha = existing[0]?.head.sha || reference?.object.sha || main.object.sha
+let parentSha = existing[0]?.head.sha || reference?.object.sha || main.object.sha
+if (!existing.length && reference) {
+  const comparison = await api(`compare/${main.object.sha}...${reference.object.sha}`)
+  // A completed handoff may leave its branch behind. Replays compare with main
+  // rather than reopening a PR whose changes were already merged.
+  if (comparison.ahead_by === 0) parentSha = main.object.sha
+}
 if (existing.length) assertCurrentHead(existing[0], parentSha, repository)
 
 // No PR checkout: even icons and metadata are untrusted until regular-file and
@@ -39,7 +45,7 @@ if (entries.length) {
   const commit = await api('git/commits', { method: 'POST', body: { message: 'chore: prepare extension catalog releases', tree: tree.sha, parents: [parentSha] } })
   if (reference) await api(`git/refs/heads/${branch}`, { method: 'PATCH', body: { sha: commit.sha, force: false } })
   else await api('git/refs', { method: 'POST', body: { ref: `refs/heads/${branch}`, sha: commit.sha } })
-} else if (!existing.length && !reference) {
+} else if (!existing.length && parentSha === main.object.sha) {
   console.log('Reviewed metadata already contains these releases.'); process.exit(0)
 }
 if (!existing.length) {

@@ -29,7 +29,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
     const oldFiles = files.filter(f => f.startsWith(`${release.packageId}@`))
     const candidates = oldFiles.map(f => ({ file: f, entry: JSON.parse(readFileSync(resolve('packages', f))) }))
     candidates.sort((a, b) => b.entry.version.localeCompare(a.entry.version, undefined, { numeric: true }))
-    const previous = candidates[0]?.entry
+    const previous = candidates.find(candidate => candidate.entry.version === release.version)?.entry || candidates[0]?.entry
     const entry = importEntry(release, previous)
     for (const theme of ['light', 'dark']) {
       const oldIcon = basename(new URL(previous.iconAssets[theme].url).pathname)
