@@ -16,7 +16,7 @@ export function importEntry(released, previous) {
   for (const [key, value] of Object.entries(derived)) if (JSON.stringify(released[key]) !== JSON.stringify(value)) throw Error(`Generated ${key} does not match permissions`)
   if (released.releaseUrl !== expectedRelease(released).url) throw Error('Unexpected release URL')
   if (!/^\d{4}-\d\d-\d\dT/.test(released.publishedAt)) throw Error('Missing GitHub publication timestamp')
-  return { ...previous, ...Object.fromEntries(technical.map(key => [key, released[key]])), publishedAt: released.publishedAt, updatedAt: released.publishedAt }
+  return { ...previous, ...Object.fromEntries(technical.map(key => [key, released[key]])), publishedAt: released.publishedAt, updatedAt: previous.version === released.version ? previous.updatedAt : released.publishedAt }
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
