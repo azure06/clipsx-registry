@@ -61,12 +61,25 @@ Superseded runs do not reconcile an older catalog.
    after their replacements have run. Restrict updates to `main` to human
    maintainers with a main-only update ruleset or supported push restriction;
    the App may update PR branches but cannot merge or push to `main`.
+   Confine the owner's allowance to the update-only ruleset. It must not bypass
+   the separate, administrator-enforced PR and required-check protections.
+   Do not add the publication App or every administrator to that allowance.
 6. Validate existing assets/fixtures during the transition. Do not bump package
    versions or replace the current signed catalog solely to test automation.
 
 The generated metadata PR is a review boundary; automation never auto-merges it.
 The signing workflow signs a candidate, not a promise that a merge is approved.
 Unmerged signed candidates are not published because clients read only `main`.
+
+Before declaring the workflow transition ready, check the live repository
+settings as well as the workflow files. Extensions require `release-ready`;
+the registry requires `validate` and `publication-ready`. Old individual
+`package (...)` requirements must not remain: documentation and workflow fixes
+correctly skip package builds, so those old requirements would wait forever.
+A registry documentation-only PR exercises the trusted readiness check against
+the unchanged signed catalog without rebuilding archives or accessing signing
+credentials. A passing check proves that path; it does not prove App credentials
+or the signing/upload path are configured.
 
 ## One-time approval-catalog configuration
 
