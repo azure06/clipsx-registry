@@ -2,25 +2,71 @@
 
 ## Normal release
 
-After the versioned extension is merged to `main`, manually run its publication
-workflow. The package manifest is the sole version source; the workflow builds,
-validates, and publishes that immutable release. Verify GitHub reports
-`immutable: true`, then review its requested permissions and catalog copy.
-Merge the package metadata only after registry CI independently verifies the
-repository, tag, asset name, size, digest, immutable status, and package
-contents. Run the protected registry publication workflow last; it generates
-deterministic index bytes and signs those exact bytes. Do not edit generated
-index or signature files manually.
+The extension-source PR builds affected packages once; merging publishes its
+checked immutable assets and opens/updates a registry metadata PR. Technical
+metadata uses `node scripts/import-release.mjs <published-releases.json>`;
+marketplace fields and versioned icons retain their reviewed values. There is
+no manual conversion procedure.
 
-Each package entry must contain a canonically sorted `portableSettings` array.
-It is empty unless the matching immutable archive declares reviewed portable
-boolean or number settings. After the signed publication PR lands on `main`,
-`Sync portable setting approvals` sends the exact registry commit and index
-digest to `clipsx-web`. That workflow rejects stale or invalid signatures and
-replaces `sync_internal.extension_settings` in one transaction. The registry
-workflow follows the uniquely correlated downstream run and reports its result,
-so a green registry run covers dispatch, reconciliation, readback, and artifact
-upload.
+`Prepare registry publication` runs on `pull_request_target` using code from
+reviewed registry `main`. It fetches only allowlisted, bounded JSON/PNG blobs
+from the PR; it never checks out its scripts, hooks, symlinks or workflows.
+It verifies exact immutable releases, downloads/checks archives, validates
+permission fingerprints/icons, assembles the complete catalog and invokes the
+pinned host tool's `validate-registry` command. This shares Discover's actual
+parser, including origin field types. Candidate evidence binds those exact
+bytes to the PR head, successful preparation run and tooling revision.
+
+`Sign registry candidate` runs separately after successful preparation. Only
+trusted `main` code and pinned actions can access signing credentials. It
+rechecks the PR head before signing and before a non-forced branch update,
+then commits both generated files into the existing PR. Stale candidates are
+rejected. A key mismatch stops before committing. App commits trigger the next
+preparation run, whose lightweight signature/source integrity check satisfies
+`publication-ready` without downloading unchanged archives or signing again.
+A source change creates a new candidate and requires preparation again.
+
+Merge the complete metadata/index/signature PR after required checks pass.
+This merge is publication approval and changes both public files together at
+the existing registry URLs. There is no extra publication PR, manual dispatch,
+or per-run environment approval. Never hand-edit generated files.
+
+The merge verifies the public bytes, then `Sync portable setting approvals`
+dispatches the exact commit and digest to `clipsx-web`, waits for the correlated
+run and reports readback. Publication and reconciliation are reported separately:
+a database/network failure cannot undo the successful public catalog merge.
+Superseded runs do not reconcile an older catalog.
+
+## One-time publication configuration
+
+1. Merge the reviewed host validator first and put its full SHA in
+   `.github/extension-tool-ref` here and in `clipsx-extensions`. Never use a
+   moving validator branch. Candidate evidence records the pin and inconsistent
+   tooling revisions fail signing/promotion.
+2. Install a dedicated GitHub App only in the extension and registry repositories.
+   Grant **Contents: read/write** and **Pull requests: read/write**, with no
+   Workflows, Administration or branch-protection bypass permission. App tokens
+   create data branches/PR commits so GitHub executes required validation.
+3. Add `CLIPSX_RELEASE_APP_ID` as a repository variable in both repositories.
+   Keep `CLIPSX_RELEASE_APP_PRIVATE_KEY` only in `extension-publication` in the
+   extension repository and `registry-signing` here. Keep
+   `CLIPSX_REGISTRY_SIGNING_KEY_PEM` in `registry-signing`; never move private
+   keys to repository-level secrets where same-repo PR jobs could access them.
+4. Restrict those environments to `main`. After trusted workflows and replacement
+   checks exist, remove the old `registry-signing` reviewer gate: human PR merge
+   is the approval. Ordinary build/test jobs have no signing environment.
+5. Keep protected `main` with strict required checks, enforced for administrators,
+   and human-controlled merges. Require `validate` and `publication-ready` here;
+   require `release-ready` in extensions. Replace old required contexts only
+   after their replacements have run. Restrict updates to `main` to human
+   maintainers with a main-only update ruleset or supported push restriction;
+   the App may update PR branches but cannot merge or push to `main`.
+6. Validate existing assets/fixtures during the transition. Do not bump package
+   versions or replace the current signed catalog solely to test automation.
+
+The generated metadata PR is a review boundary; automation never auto-merges it.
+The signing workflow signs a candidate, not a promise that a merge is approved.
+Unmerged signed candidates are not published because clients read only `main`.
 
 ## One-time approval-catalog configuration
 
@@ -54,23 +100,27 @@ reconciliation to `clipsx-web`.
 
 ## Failure handling
 
-- Validation failure: correct the source or publish a new extension version. Do
-  not replace an existing release asset.
-- Mutable release: discard the draft or publish a higher version after fixing
-  repository immutability.
-- Publication failure: leave the previous signed index live and rerun only after
-  fixing the workflow or metadata.
-- Approval-catalog failure: correct the one-time credential or network setting,
-  then rerun `Sync portable setting approvals`. The downstream workflow can also
-  be run manually with the exact registry commit and `index.json` SHA-256 for
-  recovery; routine publications require no manual dispatch or database update.
-- Registry outage: ClipsX retains its last verified catalog. Never bypass client
-  signature checks to recover availability.
+| Stage | Recovery |
+| --- | --- |
+| Metadata/archive/host-contract validation | Fix the open source PR; bad released content needs a higher immutable version |
+| Signing credentials, App token or key mismatch | Correct one-time setup; rerun the failed signing job |
+| Stale PR head | Discard the old candidate; the new revision prepares automatically |
+| Candidate artifact expired | Rerun the trusted preparation workflow for the open PR, then its automatic signer |
+| Public URLs lag the merged bytes | Rerun URL verification; do not resign or rebuild |
+| Portable-setting dispatch/reconciliation/readback | Fix credentials/network, then rerun only `Sync portable setting approvals` |
+| Conflicting or mutable release | Stop and correct publication with a higher version; never replace assets |
+| Registry outage | Keep the last verified cached catalog; never bypass client signatures |
+
+Use `gh run rerun <run-id> --failed` for a failed stage, or rerun the preparation
+run when its artifact needs replacing. Recovery dispatch of the existing sync
+workflow is available with the exact registry revision and digest; routine
+publication needs no dispatch, database update or reset. A source PR that
+removes the established index/signature or all package records fails preparation.
 
 ## Emergency revocation
 
 Add the exact package ID, version, and archive SHA-256 to `revocations.json`,
-merge after review, and run the protected publication workflow. Verify that a
+let trusted preparation sign it in the same PR, then merge after review. Verify that a
 fresh install is blocked and an installed matching release is quarantined.
 
 ## Key rotation
