@@ -61,6 +61,9 @@ Superseded runs do not reconcile an older catalog.
    after their replacements have run. Restrict updates to `main` to human
    maintainers with a main-only update ruleset or supported push restriction;
    the App may update PR branches but cannot merge or push to `main`.
+   Confine the owner's allowance to the update-only ruleset. It must not bypass
+   the separate, administrator-enforced PR and required-check protections.
+   Do not add the publication App or every administrator to that allowance.
 6. Validate existing assets/fixtures during the transition. Do not bump package
    versions or replace the current signed catalog solely to test automation.
 
