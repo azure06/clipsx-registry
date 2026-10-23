@@ -48,11 +48,11 @@ by a higher version; it is never overwritten.
    additional publication PR, human signing approval or routine manual dispatch.
 5. The merge verifies public bytes and triggers `clipsx-web` reconciliation and
    readback. Publication and database reconciliation have separate status.
-6. Refresh Discover and follow [OPERATIONS.md](OPERATIONS.md) for installed
+6. Refresh Discover and follow [operating instructions](.agents/skills/clipsx-registry-publication/references/operations.md) for installed
    checks, credentials, revocation and recovery. Agent work uses the
    [publication skill](.agents/skills/clipsx-registry-publication/SKILL.md).
 
-Never commit a private key. See [OPERATIONS.md](OPERATIONS.md) for revocation,
+Never commit a private key. See [operating instructions](.agents/skills/clipsx-registry-publication/references/operations.md) for revocation,
 key rotation, and recovery.
 
 Ordinary workflows use readable major action versions. Actions in the protected

@@ -5,7 +5,7 @@ description: Import ClipsX release metadata, validate and sign registry candidat
 
 # Registry publication workflow
 
-1. Read [operations](../../../OPERATIONS.md) and the actual
+1. Read [operations](references/operations.md) and the actual
    [trusted preparation](../../../.github/workflows/prepare.yml),
    [signer](../../../.github/workflows/publish.yml) and
    [reconciliation](../../../.github/workflows/sync-portable-settings.yml).
