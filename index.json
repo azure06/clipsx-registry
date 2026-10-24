@@ -339,6 +339,78 @@
     },
     {
       "apiVersion": "^3.2",
+      "archiveSizeBytes": 1124586,
+      "description": "Fast, offline Mermaid diagrams and enhanced Markdown rendering.",
+      "displayName": "Mermaid",
+      "packageId": "infiniti.mermaid",
+      "permissionFingerprint": "52cb2e5bf056edbc8be62deb3151145e182ab525f6d1e8975a62358012325447",
+      "permissionReport": {
+        "backgroundClipCreated": false,
+        "credentials": [],
+        "externalNavigation": [],
+        "externalWrites": [],
+        "http": [],
+        "packageState": false,
+        "providers": [],
+        "selectedInput": false,
+        "sourceApplication": false
+      },
+      "portableSettings": [
+        {
+          "settingId": "fit-diagram",
+          "valueKind": "boolean"
+        },
+        {
+          "settingId": "show-source",
+          "valueKind": "boolean"
+        }
+      ],
+      "releaseUrl": "https://github.com/azure06/clipsx-extensions/releases/download/mermaid-v2.0.1/mermaid-2.0.1.clipsx",
+      "sha256": "7138dcec1e1d5f0a8b6a32d26a65a01a69b73befa727cb584fa555af5ebf8596",
+      "version": "2.0.1",
+      "contributions": [
+        "detect-mermaid",
+        "mermaid-detail",
+        "markdown-mermaid-detail",
+        "open-mermaid-dialog"
+      ],
+      "httpOrigins": [],
+      "externalNavigationOrigins": [],
+      "credentialLabels": [],
+      "providers": [],
+      "publisher": {
+        "id": "infiniti",
+        "displayName": "Infiniti",
+        "verified": true
+      },
+      "categories": [
+        "Productivity",
+        "Visualization"
+      ],
+      "tags": [
+        "mermaid",
+        "diagram",
+        "markdown"
+      ],
+      "publishedAt": "2026-10-24T11:54:14Z",
+      "updatedAt": "2026-10-24T11:54:14Z",
+      "license": "MIT",
+      "homepageUrl": "https://github.com/azure06/clipsx-extensions/tree/main/extensions/mermaid-viewer",
+      "repositoryUrl": "https://github.com/azure06/clipsx-extensions",
+      "documentationUrl": "https://github.com/azure06/clipsx-extensions/blob/main/extensions/mermaid-viewer/README.md",
+      "iconAssets": {
+        "light": {
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/mermaid-2.0.1-light.png",
+          "sha256": "fe9ac92789d1916f5bfc07758e3eab34acf491c018ccaa48ceb445b8c46d4fdc"
+        },
+        "dark": {
+          "url": "https://raw.githubusercontent.com/azure06/clipsx-registry/main/icons/mermaid-2.0.1-dark.png",
+          "sha256": "fe9ac92789d1916f5bfc07758e3eab34acf491c018ccaa48ceb445b8c46d4fdc"
+        }
+      }
+    },
+    {
+      "apiVersion": "^3.2",
       "archiveSizeBytes": 47555,
       "description": "Rewrite copied text with the configured local generation model.",
       "displayName": "Rewrite",
