@@ -32,12 +32,23 @@ test('canonical catalog sorts sources, rejects empty sources, preserves typed va
 
 test('only the exact successful trusted workflow run can supply signing bytes', () => {
   const repository = 'azure06/clipsx-registry', bytes = Buffer.from('catalog'), toolRef = 'a'.repeat(40)
-  const run = { id: 123, head_sha: 'b'.repeat(40), path: '.github/workflows/prepare.yml', head_repository: { full_name: repository }, event: 'pull_request_target', conclusion: 'success' }
-  const evidence = { schemaVersion: 1, repository, runId: 123, trustedRef: run.head_sha, toolRef, indexSha256: hash(bytes), prNumber: 22, headSha: 'c'.repeat(40) }
+  const base = 'b'.repeat(40), head = 'c'.repeat(40)
+  const source = { number: 22, base: { ref: 'main', sha: base }, head: { sha: head } }
+  const run = { id: 123, head_sha: head, pull_requests: [source], path: '.github/workflows/prepare.yml', head_repository: { full_name: repository }, event: 'pull_request_target', conclusion: 'success' }
+  const evidence = { schemaVersion: 1, repository, runId: 123, trustedRef: base, toolRef, indexSha256: hash(bytes), prNumber: 22, headSha: head }
   assert.doesNotThrow(() => verifySigningEvidence(evidence, run, bytes, toolRef, repository))
   for (const field of ['runId', 'trustedRef', 'toolRef', 'indexSha256', 'repository', 'headSha']) assert.throws(() => verifySigningEvidence({ ...evidence, [field]: 'forged' }, run, bytes, toolRef, repository))
   for (const field of ['path', 'event', 'conclusion']) assert.throws(() => verifySigningEvidence(evidence, { ...run, [field]: 'wrong' }, bytes, toolRef, repository))
   assert.throws(() => verifySigningEvidence(evidence, run, Buffer.from('changed catalog'), toolRef, repository))
+  assert.throws(() => verifySigningEvidence(evidence, { ...run, pull_requests: [] }, bytes, toolRef, repository))
+  assert.throws(() => verifySigningEvidence(evidence, { ...run, head_sha: base }, bytes, toolRef, repository))
+  for (const changed of [
+    { ...source, number: 23 },
+    { ...source, head: { sha: base } },
+    { ...source, base: { ref: 'other', sha: base } },
+    { ...source, base: { ref: 'main', sha: head } },
+  ]) assert.throws(() => verifySigningEvidence(evidence, { ...run, pull_requests: [changed] }, bytes, toolRef, repository))
+  assert.doesNotThrow(() => verifySigningEvidence(evidence, { ...run, pull_requests: [{ ...source, number: 23 }, source] }, bytes, toolRef, repository))
 })
 
 test('snapshot copies allowlisted data, excludes scripts, and refuses symlink blobs', () => {
