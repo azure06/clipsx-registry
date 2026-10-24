@@ -14,7 +14,9 @@ const evidenceBytes = readFileSync(resolve(root, 'evidence.json'))
 if (evidenceBytes.length > 16 * 1024) throw Error('Signing evidence exceeds its limit')
 const evidence = JSON.parse(evidenceBytes)
 const event = JSON.parse(readFileSync(process.env.GITHUB_EVENT_PATH))
-const run = event.workflow_run
+// Resolve the originating run's canonical PR/base metadata rather than relying
+// on the workflow_run event's sometimes incomplete pull_requests array.
+const run = await api(`actions/runs/${event.workflow_run.id}`, { token: process.env.GH_STATUS_TOKEN })
 verifySigningEvidence(evidence, run, bytes, readFileSync('.github/extension-tool-ref', 'utf8').trim(), repository)
 try {
   const pr = await api(`pulls/${evidence.prNumber}`)

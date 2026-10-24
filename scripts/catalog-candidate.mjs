@@ -18,7 +18,10 @@ export function assertCurrentHead(pr, expectedSha, repository) {
 }
 
 export function verifySigningEvidence(evidence, run, bytes, toolRef, repository) {
-  if (evidence.schemaVersion !== 1 || evidence.repository !== repository || evidence.runId !== run.id || evidence.trustedRef !== run.head_sha || run.path !== '.github/workflows/prepare.yml' || run.head_repository?.full_name !== repository || run.event !== 'pull_request_target' || run.conclusion !== 'success' || evidence.toolRef !== toolRef || evidence.indexSha256 !== hash(bytes) || !Number.isSafeInteger(evidence.prNumber) || evidence.prNumber < 1 || !/^[a-f0-9]{40}$/.test(evidence.headSha)) throw Error('Signing evidence does not match the trusted preparation run')
+  const source = run.pull_requests?.find(pr => pr.number === evidence.prNumber)
+  // PR-target runs report the proposed head as head_sha, while GITHUB_SHA
+  // identifies the trusted base whose workflow actually prepared the catalog.
+  if (evidence.schemaVersion !== 1 || evidence.repository !== repository || evidence.runId !== run.id || evidence.headSha !== run.head_sha || evidence.headSha !== source?.head.sha || source?.base.ref !== 'main' || evidence.trustedRef !== source?.base.sha || !/^[a-f0-9]{40}$/.test(evidence.trustedRef) || run.path !== '.github/workflows/prepare.yml' || run.head_repository?.full_name !== repository || run.event !== 'pull_request_target' || run.conclusion !== 'success' || evidence.toolRef !== toolRef || evidence.indexSha256 !== hash(bytes) || !Number.isSafeInteger(evidence.prNumber) || evidence.prNumber < 1 || !/^[a-f0-9]{40}$/.test(evidence.headSha)) throw Error('Signing evidence does not match the trusted preparation run')
 }
 
 // Read only allowlisted Git blobs. Never check out or execute a candidate's scripts,
